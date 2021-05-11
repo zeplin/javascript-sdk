@@ -1,0 +1,44 @@
+on:
+  release:
+    types:
+      - published
+
+name: Publish
+
+env:
+  VERSION: ${{ github.event.release.tag_name }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SubscriptionCheckout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.0.0'
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Set version
+        run: npm version $VERSION --no-git-tag-version
+
+      - name: Publish
+        run: npm publish --access public

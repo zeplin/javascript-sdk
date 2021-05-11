@@ -1,0 +1,13 @@
+{
+  "name": "oauth-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@zeplin/sdk": "../..",
+    "express": "^4.17.1"
+  }
+}

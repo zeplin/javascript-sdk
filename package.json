@@ -1,0 +1,40 @@
+{
+  "name": "@zeplin/sdk",
+  "version": "0.0.0",
+  "description": "Zeplin API client for javascript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "babel --extensions \".ts\" -f .babelrc src/ -d ./dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeplin/typescript-sdk.git"
+  },
+  "keywords": [
+    "zeplin",
+    "api",
+    "sdk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeplin/typescript-sdk/issues"
+  },
+  "homepage": "https://github.com/zeplin/typescript-sdk#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "core-js": "^3.10.2",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.14",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-typescript": "^7.13.0",
+    "@tsconfig/node14": "^1.0.0",
+    "@types/node": "^14.14.41",
+    "typescript": "^4.2.4"
+  }
+}
