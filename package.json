@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zeplin/typescript-sdk.git"
+    "url": "git+https://github.com/zeplin/javascript-sdk.git"
   },
   "keywords": [
     "zeplin",
@@ -20,9 +20,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zeplin/typescript-sdk/issues"
+    "url": "https://github.com/zeplin/javascript-sdk/issues"
   },
-  "homepage": "https://github.com/zeplin/typescript-sdk#readme",
+  "homepage": "https://github.com/zeplin/javascript-sdk#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.10.2",
