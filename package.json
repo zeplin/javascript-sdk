@@ -1,7 +1,7 @@
 {
   "name": "@zeplin/sdk",
   "version": "0.0.0",
-  "description": "Zeplin API client for javascript",
+  "description": "Zeplin API client for JavaScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
