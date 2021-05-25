@@ -9,6 +9,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@zeplin/sdk": "../.."
+    "@zeplin/sdk": "latest"
   }
 }
