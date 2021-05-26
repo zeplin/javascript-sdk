@@ -81,6 +81,12 @@ import {
 } from '../models';
 // @ts-ignore
 import {
+    ScreenVariant,
+    transformScreenVariantToJSON,
+    transformJSONToScreenVariant
+} from '../models';
+// @ts-ignore
+import {
     ScreenVersion,
     transformScreenVersionToJSON,
     transformJSONToScreenVersion
@@ -564,6 +570,104 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Get a screen variant by id
+         * @summary Get a single screen variant
+         * @param {string} projectId Project id
+         * @param {string} variantId Screen variant id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenVariant: async (projectId: string, variantId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenVariant', 'projectId', projectId)
+            // verify required parameter 'variantId' is not null or undefined
+            assertParamExists('getScreenVariant', 'variantId', variantId)
+            const localVarPath = `/v1/projects/{project_id}/screen_variants/{variant_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"variant_id"}}`, encodeURIComponent(String(variantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all screen variants of the project
+         * @summary Get screen variants
+         * @param {string} projectId Project id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenVariants: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenVariants', 'projectId', projectId)
+            const localVarPath = `/v1/projects/{project_id}/screen_variants`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get details of the screen version
          * @summary Get a single screen version
          * @param {string} projectId Project id
@@ -966,6 +1070,31 @@ export const ScreensApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Get a screen variant by id
+         * @summary Get a single screen variant
+         * @param {string} projectId Project id
+         * @param {string} variantId Screen variant id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenVariant(projectId: string, variantId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenVariant(projectId, variantId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * List all screen variants of the project
+         * @summary Get screen variants
+         * @param {string} projectId Project id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenVariants(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenVariants(projectId, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get details of the screen version
          * @summary Get a single screen version
          * @param {string} projectId Project id
@@ -1117,6 +1246,28 @@ export interface ScreensApiGetScreenSectionsSearchParams {
      * Pagination offset
      * @type {number}
      * @memberof ScreensApiGetScreenSectionsSearchParams
+     */
+    readonly offset?: number;
+}
+
+
+/**
+ * Search parameters for getScreenVariants operation in ScreensApi.
+ * @export
+ * @interface ScreensApiGetScreenVariantsSearchParams
+ */
+export interface ScreensApiGetScreenVariantsSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof ScreensApiGetScreenVariantsSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof ScreensApiGetScreenVariantsSearchParams
      */
     readonly offset?: number;
 }
@@ -1327,6 +1478,44 @@ export class ScreensApi extends BaseAPI {
         return {
             ...response,
             data: response.data.map(transformJSONToScreenSection)
+        };
+    }
+
+    /**
+     * Get a screen variant by id
+     * @summary Get a single screen variant
+     * @param {string} projectId Project id
+     * @param {string} variantId Screen variant id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenVariant(projectId: string, variantId: string, options?: any) : Promise<AxiosResponse<ScreenVariant>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenVariant(projectId, variantId, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: transformJSONToScreenVariant(response.data)
+        };
+    }
+
+    /**
+     * List all screen variants of the project
+     * @summary Get screen variants
+     * @param {string} projectId Project id
+     * @param {ScreensApiGetScreenVariantsSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenVariants(projectId: string, searchParams: ScreensApiGetScreenVariantsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ScreenVariant>>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenVariants(projectId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToScreenVariant)
         };
     }
 

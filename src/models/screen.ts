@@ -18,6 +18,11 @@ import {
     transformJSONToEntityReference
 } from './entity-reference';
 import {
+    ScreenVariant,
+    transformScreenVariantToJSON,
+    transformJSONToScreenVariant
+} from './screen-variant';
+import {
     SnapshotImage,
     transformSnapshotImageToJSON,
     transformJSONToSnapshotImage
@@ -35,7 +40,8 @@ export const transformScreenToJSON = function (value: Screen): any {
         updated: value.updated,
         number_of_versions: value.numberOfVersions,
         number_of_notes: value.numberOfNotes,
-        section: value.section && transformEntityReferenceToJSON(value.section)
+        section: value.section && transformEntityReferenceToJSON(value.section),
+        variant: value.variant && transformScreenVariantToJSON(value.variant)
     }
 }
 
@@ -50,7 +56,8 @@ export const transformJSONToScreen = function (value: any): Screen {
         updated: value.updated,
         numberOfVersions: value.number_of_versions,
         numberOfNotes: value.number_of_notes,
-        section: value.section && transformJSONToEntityReference(value.section)
+        section: value.section && transformJSONToEntityReference(value.section),
+        variant: value.variant && transformJSONToScreenVariant(value.variant)
     }
 }
 
@@ -120,6 +127,12 @@ export interface Screen {
      * @memberof Screen
      */
     section?: EntityReference;
+    /**
+     * 
+     * @type {ScreenVariant}
+     * @memberof Screen
+     */
+    variant?: ScreenVariant;
 }
 
 
