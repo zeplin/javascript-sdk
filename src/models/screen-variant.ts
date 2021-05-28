@@ -13,23 +13,23 @@
 
 
 import {
-    ScreenVariantGroup,
-    transformScreenVariantGroupToJSON,
-    transformJSONToScreenVariantGroup
-} from './screen-variant-group';
+    ScreenVariantGroupReference,
+    transformScreenVariantGroupReferenceToJSON,
+    transformJSONToScreenVariantGroupReference
+} from './screen-variant-group-reference';
 
 
 export const transformScreenVariantToJSON = function (value: ScreenVariant): any {
     return {
         value: value.value,
-        group: transformScreenVariantGroupToJSON(value.group)
+        group: transformScreenVariantGroupReferenceToJSON(value.group)
     }
 }
 
 export const transformJSONToScreenVariant = function (value: any): ScreenVariant {
     return {
         value: value.value,
-        group: transformJSONToScreenVariantGroup(value.group)
+        group: transformJSONToScreenVariantGroupReference(value.group)
     }
 }
 
@@ -47,10 +47,10 @@ export interface ScreenVariant {
     value: string;
     /**
      * 
-     * @type {ScreenVariantGroup}
+     * @type {ScreenVariantGroupReference}
      * @memberof ScreenVariant
      */
-    group: ScreenVariantGroup;
+    group: ScreenVariantGroupReference;
 }
 
 

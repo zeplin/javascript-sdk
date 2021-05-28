@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -90,7 +91,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -136,7 +137,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -188,7 +189,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -250,7 +251,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -306,7 +307,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -362,7 +363,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -424,7 +425,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -496,7 +497,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -545,7 +546,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -597,7 +598,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 

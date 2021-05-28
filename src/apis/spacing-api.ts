@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -90,7 +91,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -142,7 +143,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -204,7 +205,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -266,7 +267,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -311,7 +312,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -359,7 +360,7 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
             // oauth required
             await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 

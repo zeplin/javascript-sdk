@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -81,9 +82,9 @@ import {
 } from '../models';
 // @ts-ignore
 import {
-    ScreenVariant,
-    transformScreenVariantToJSON,
-    transformJSONToScreenVariant
+    ScreenVariantGroup,
+    transformScreenVariantGroupToJSON,
+    transformJSONToScreenVariantGroup
 } from '../models';
 // @ts-ignore
 import {
@@ -103,6 +104,97 @@ import {
  */
 export const ScreensApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Create a new screen in the project
+         * @summary Create a new screen
+         * @param {string} projectId Project id
+         * @param {string} name Name of the screen
+         * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+         * @param {string} [description] Description for the screen
+         * @param {string} [commitMessage] Commit message for the screen version
+         * @param {string} [commitColor] Commit color for the screen version
+         * @param {Array<string>} [tags] Tags for the screen
+         * @param {string} [sectionId] Unique id of the screen section
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createScreen: async (projectId: string, name: string, image: any, description?: string, commitMessage?: string, commitColor?: string, tags?: Array<string>, sectionId?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createScreen', 'projectId', projectId)
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('createScreen', 'name', name)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('createScreen', 'image', image)
+            const localVarPath = `/v1/projects/{project_id}/screens`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+            if (name !== undefined) { 
+                localVarFormParams.append('name', name as any);
+            }
+    
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image.file as any, `image.${image.type}`);
+            }
+    
+            if (description !== undefined) { 
+                localVarFormParams.append('description', description as any);
+            }
+    
+            if (commitMessage !== undefined) { 
+                localVarFormParams.append('commit_message', commitMessage as any);
+            }
+    
+            if (commitColor !== undefined) { 
+                localVarFormParams.append('commit_color', commitColor as any);
+            }
+    
+            if (tags) {
+
+                localVarFormParams.append('tags', tags.join(COLLECTION_FORMATS.csv));
+            }
+
+    
+            if (sectionId !== undefined) { 
+                localVarFormParams.append('section_id', sectionId as any);
+            }
+    
+    
+            if (localVarFormParams.getHeaders) {
+                Object.assign(localVarHeaderParameter, localVarFormParams.getHeaders());
+            } else {
+                localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            }
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Create comment on the screen note
          * @summary Create a comment
@@ -145,7 +237,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -197,7 +289,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -205,6 +297,77 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(transformScreenNoteCreateBodyToJSON(screenNoteCreateBody), localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new screen version in the project
+         * @summary Create a new screen version
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+         * @param {string} [commitMessage] Commit message for the screen version
+         * @param {string} [commitColor] Commit color for the screen version
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createScreenVersion: async (projectId: string, screenId: string, image: any, commitMessage?: string, commitColor?: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createScreenVersion', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('createScreenVersion', 'screenId', screenId)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('createScreenVersion', 'image', image)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/versions`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image.file as any, `image.${image.type}`);
+            }
+    
+            if (commitMessage !== undefined) { 
+                localVarFormParams.append('commit_message', commitMessage as any);
+            }
+    
+            if (commitColor !== undefined) { 
+                localVarFormParams.append('commit_color', commitColor as any);
+            }
+    
+    
+            if (localVarFormParams.getHeaders) {
+                Object.assign(localVarHeaderParameter, localVarFormParams.getHeaders());
+            } else {
+                localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            }
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -246,7 +409,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -308,7 +471,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -354,7 +517,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -404,7 +567,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -460,7 +623,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -506,7 +669,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -558,7 +721,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -604,7 +767,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -656,7 +819,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -706,7 +869,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -762,7 +925,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -811,7 +974,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -871,7 +1034,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -927,7 +1090,7 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -951,6 +1114,24 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
 export const ScreensApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ScreensApiAxiosParamCreator(configuration)
     return {
+        /**
+         * Create a new screen in the project
+         * @summary Create a new screen
+         * @param {string} projectId Project id
+         * @param {string} name Name of the screen
+         * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+         * @param {string} [description] Description for the screen
+         * @param {string} [commitMessage] Commit message for the screen version
+         * @param {string} [commitColor] Commit color for the screen version
+         * @param {Array<string>} [tags] Tags for the screen
+         * @param {string} [sectionId] Unique id of the screen section
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createScreen(projectId: string, name: string, image: any, description?: string, commitMessage?: string, commitColor?: string, tags?: Array<string>, sectionId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createScreen(projectId, name, image, description, commitMessage, commitColor, tags, sectionId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
         /**
          * Create comment on the screen note
          * @summary Create a comment
@@ -976,6 +1157,21 @@ export const ScreensApiFp = function(configuration?: Configuration) {
          */
         async createScreenNote(projectId: string, screenId: string, screenNoteCreateBody: ScreenNoteCreateBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createScreenNote(projectId, screenId, screenNoteCreateBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Create a new screen version in the project
+         * @summary Create a new screen version
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+         * @param {string} [commitMessage] Commit message for the screen version
+         * @param {string} [commitColor] Commit color for the screen version
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createScreenVersion(projectId: string, screenId: string, image: any, commitMessage?: string, commitColor?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createScreenVersion(projectId, screenId, image, commitMessage, commitColor, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1167,7 +1363,97 @@ export const ScreensApiFp = function(configuration?: Configuration) {
 };
 
 
+/**
+ * Body for createScreen operation in ScreensApi.
+ * @export
+ * @interface ScreensApiCreateScreenBody
+ */
+export interface ScreensApiCreateScreenBody {
+    /**
+     * Name of the screen
+     * @type {string}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly name: string;
 
+    /**
+     * Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+     * @type {{ file: any, type: "jpeg" | "png" }}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly image: {
+        file: any,
+        type: "jpeg" | "png"
+    };
+
+    /**
+     * Description for the screen
+     * @type {string}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly description?: string;
+
+    /**
+     * Commit message for the screen version
+     * @type {string}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly commitMessage?: string;
+
+    /**
+     * Commit color for the screen version
+     * @type {string}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly commitColor?: string;
+
+    /**
+     * Tags for the screen
+     * @type {Array<string>}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly tags?: Array<string>;
+
+    /**
+     * Unique id of the screen section
+     * @type {string}
+     * @memberof ScreensApiCreateScreenBody
+     */
+    readonly sectionId?: string;
+}
+
+
+
+/**
+ * Body for createScreenVersion operation in ScreensApi.
+ * @export
+ * @interface ScreensApiCreateScreenVersionBody
+ */
+export interface ScreensApiCreateScreenVersionBody {
+    /**
+     * Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+     * @type {{ file: any, type: "jpeg" | "png" }}
+     * @memberof ScreensApiCreateScreenVersionBody
+     */
+    readonly image: {
+        file: any,
+        type: "jpeg" | "png"
+    };
+
+    /**
+     * Commit message for the screen version
+     * @type {string}
+     * @memberof ScreensApiCreateScreenVersionBody
+     */
+    readonly commitMessage?: string;
+
+    /**
+     * Commit color for the screen version
+     * @type {string}
+     * @memberof ScreensApiCreateScreenVersionBody
+     */
+    readonly commitColor?: string;
+}
 
 
 /**
@@ -1306,6 +1592,31 @@ export interface ScreensApiGetScreenVersionsSearchParams {
  */
 export class ScreensApi extends BaseAPI {
     /**
+     * Create a new screen in the project
+     * @summary Create a new screen
+     * @param {string} projectId Project id
+     * @param {string} name Name of the screen
+     * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+     * @param {string} [description] Description for the screen
+     * @param {string} [commitMessage] Commit message for the screen version
+     * @param {string} [commitColor] Commit color for the screen version
+     * @param {Array<string>} [tags] Tags for the screen
+     * @param {string} [sectionId] Unique id of the screen section
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async createScreen(projectId: string, multipartParams: ScreensApiCreateScreenBody, options?: any) : Promise<AxiosResponse<EntityReference>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.createScreen(projectId, multipartParams.name, multipartParams.image, multipartParams.description, multipartParams.commitMessage, multipartParams.commitColor, multipartParams.tags, multipartParams.sectionId, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: transformJSONToEntityReference(response.data)
+        };
+    }
+
+    /**
      * Create comment on the screen note
      * @summary Create a comment
      * @param {string} projectId Project id
@@ -1339,6 +1650,28 @@ export class ScreensApi extends BaseAPI {
     public async createScreenNote(projectId: string, screenId: string, screenNoteCreateBody: ScreenNoteCreateBody, options?: any) : Promise<AxiosResponse<EntityReference>> {
         const screensApiFp = ScreensApiFp(this.configuration);
         const request = await screensApiFp.createScreenNote(projectId, screenId, screenNoteCreateBody, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: transformJSONToEntityReference(response.data)
+        };
+    }
+
+    /**
+     * Create a new screen version in the project
+     * @summary Create a new screen version
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {any} image Binary data of the screen image.  The image has to be in JPEG or PNG format, and its size cannot exceed 5MB. 
+     * @param {string} [commitMessage] Commit message for the screen version
+     * @param {string} [commitColor] Commit color for the screen version
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async createScreenVersion(projectId: string, screenId: string, multipartParams: ScreensApiCreateScreenVersionBody, options?: any) : Promise<AxiosResponse<EntityReference>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.createScreenVersion(projectId, screenId, multipartParams.image, multipartParams.commitMessage, multipartParams.commitColor, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1490,13 +1823,13 @@ export class ScreensApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ScreensApi
      */
-    public async getScreenVariant(projectId: string, variantId: string, options?: any) : Promise<AxiosResponse<ScreenVariant>> {
+    public async getScreenVariant(projectId: string, variantId: string, options?: any) : Promise<AxiosResponse<ScreenVariantGroup>> {
         const screensApiFp = ScreensApiFp(this.configuration);
         const request = await screensApiFp.getScreenVariant(projectId, variantId, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
-            data: transformJSONToScreenVariant(response.data)
+            data: transformJSONToScreenVariantGroup(response.data)
         };
     }
 
@@ -1509,13 +1842,13 @@ export class ScreensApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ScreensApi
      */
-    public async getScreenVariants(projectId: string, searchParams: ScreensApiGetScreenVariantsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ScreenVariant>>> {
+    public async getScreenVariants(projectId: string, searchParams: ScreensApiGetScreenVariantsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ScreenVariantGroup>>> {
         const screensApiFp = ScreensApiFp(this.configuration);
         const request = await screensApiFp.getScreenVariants(projectId, searchParams.limit, searchParams.offset, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
-            data: response.data.map(transformJSONToScreenVariant)
+            data: response.data.map(transformJSONToScreenVariantGroup)
         };
     }
 

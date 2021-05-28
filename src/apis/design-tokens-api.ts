@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -78,7 +79,7 @@ export const DesignTokensApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['token_name_case'] = tokenNameCase;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -130,7 +131,7 @@ export const DesignTokensApiAxiosParamCreator = function (configuration?: Config
                 localVarQueryParameter['token_name_case'] = tokenNameCase;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};

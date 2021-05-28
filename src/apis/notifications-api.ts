@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -80,7 +81,7 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -138,7 +139,7 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['type'] = Array.from(type);
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -183,7 +184,7 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -237,7 +238,7 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['id'] = id;
             }
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 

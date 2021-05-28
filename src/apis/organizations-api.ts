@@ -13,6 +13,7 @@
 
 
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosResponse } from 'axios';
+import FormData from 'form-data';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -122,7 +123,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -164,7 +165,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -206,7 +207,119 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a list of projects that an organization member is a part of
+         * @summary Get a member\'s projects
+         * @param {string} organizationId Organization id
+         * @param {string} memberId Member id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationMemberProjects: async (organizationId: string, memberId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('getOrganizationMemberProjects', 'organizationId', organizationId)
+            // verify required parameter 'memberId' is not null or undefined
+            assertParamExists('getOrganizationMemberProjects', 'memberId', memberId)
+            const localVarPath = `/v1/organizations/{organization_id}/members/{member_id}/projects`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"member_id"}}`, encodeURIComponent(String(memberId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a list of styleguides that an organization member is a part of
+         * @summary Get a member\'s styleguides
+         * @param {string} organizationId Organization id
+         * @param {string} memberId Member id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOrganizationMemberStyleguides: async (organizationId: string, memberId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'organizationId' is not null or undefined
+            assertParamExists('getOrganizationMemberStyleguides', 'organizationId', organizationId)
+            // verify required parameter 'memberId' is not null or undefined
+            assertParamExists('getOrganizationMemberStyleguides', 'memberId', memberId)
+            const localVarPath = `/v1/organizations/{organization_id}/members/{member_id}/styleguides`
+                .replace(`{${"organization_id"}}`, encodeURIComponent(String(organizationId)))
+                .replace(`{${"member_id"}}`, encodeURIComponent(String(memberId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -258,7 +371,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -310,7 +423,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -362,7 +475,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['offset'] = offset;
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -404,7 +517,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -447,7 +560,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['role'] = Array.from(role);
             }
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -492,7 +605,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -537,7 +650,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -582,7 +695,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
-
+    
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -637,6 +750,34 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          */
         async getOrganizationBilling(organizationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationBilling(organizationId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a list of projects that an organization member is a part of
+         * @summary Get a member\'s projects
+         * @param {string} organizationId Organization id
+         * @param {string} memberId Member id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOrganizationMemberProjects(organizationId: string, memberId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationMemberProjects(organizationId, memberId, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a list of styleguides that an organization member is a part of
+         * @summary Get a member\'s styleguides
+         * @param {string} organizationId Organization id
+         * @param {string} memberId Member id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOrganizationMemberStyleguides(organizationId: string, memberId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationMemberStyleguides(organizationId, memberId, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -743,6 +884,48 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
 
 
 
+
+/**
+ * Search parameters for getOrganizationMemberProjects operation in OrganizationsApi.
+ * @export
+ * @interface OrganizationsApiGetOrganizationMemberProjectsSearchParams
+ */
+export interface OrganizationsApiGetOrganizationMemberProjectsSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof OrganizationsApiGetOrganizationMemberProjectsSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof OrganizationsApiGetOrganizationMemberProjectsSearchParams
+     */
+    readonly offset?: number;
+}
+
+/**
+ * Search parameters for getOrganizationMemberStyleguides operation in OrganizationsApi.
+ * @export
+ * @interface OrganizationsApiGetOrganizationMemberStyleguidesSearchParams
+ */
+export interface OrganizationsApiGetOrganizationMemberStyleguidesSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof OrganizationsApiGetOrganizationMemberStyleguidesSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof OrganizationsApiGetOrganizationMemberStyleguidesSearchParams
+     */
+    readonly offset?: number;
+}
 
 /**
  * Search parameters for getOrganizationMembers operation in OrganizationsApi.
@@ -884,6 +1067,46 @@ export class OrganizationsApi extends BaseAPI {
         return {
             ...response,
             data: transformJSONToOrganizationBilling(response.data)
+        };
+    }
+
+    /**
+     * Get a list of projects that an organization member is a part of
+     * @summary Get a member\'s projects
+     * @param {string} organizationId Organization id
+     * @param {string} memberId Member id
+     * @param {OrganizationsApiGetOrganizationMemberProjectsSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public async getOrganizationMemberProjects(organizationId: string, memberId: string, searchParams: OrganizationsApiGetOrganizationMemberProjectsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Project>>> {
+        const organizationsApiFp = OrganizationsApiFp(this.configuration);
+        const request = await organizationsApiFp.getOrganizationMemberProjects(organizationId, memberId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToProject)
+        };
+    }
+
+    /**
+     * Get a list of styleguides that an organization member is a part of
+     * @summary Get a member\'s styleguides
+     * @param {string} organizationId Organization id
+     * @param {string} memberId Member id
+     * @param {OrganizationsApiGetOrganizationMemberStyleguidesSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OrganizationsApi
+     */
+    public async getOrganizationMemberStyleguides(organizationId: string, memberId: string, searchParams: OrganizationsApiGetOrganizationMemberStyleguidesSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Styleguide>>> {
+        const organizationsApiFp = OrganizationsApiFp(this.configuration);
+        const request = await organizationsApiFp.getOrganizationMemberStyleguides(organizationId, memberId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToStyleguide)
         };
     }
 

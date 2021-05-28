@@ -16,7 +16,6 @@ export interface ConfigurationParameters {
     accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string) | ((name?: string, scopes?: string[]) => Promise<string>);
     basePath?: string;
     baseOptions?: any;
-    formDataCtor?: new () => any;
 }
 
 export class Configuration {
@@ -41,20 +40,11 @@ export class Configuration {
      * @memberof Configuration
      */
     baseOptions?: any;
-    /**
-     * The FormData constructor that will be used to create multipart form data
-     * requests. You can inject this here so that execution environments that
-     * do not support the FormData class can still run the generated client.
-     *
-     * @type {new () => FormData}
-     */
-    formDataCtor?: new () => any;
 
     constructor(param: ConfigurationParameters = {}) {
         this.accessToken = param.accessToken;
         this.basePath = param.basePath;
         this.baseOptions = param.baseOptions;
-        this.formDataCtor = param.formDataCtor;
     }
 
     /**

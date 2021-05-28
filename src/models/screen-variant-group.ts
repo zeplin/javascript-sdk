@@ -12,40 +12,53 @@
  */
 
 
+import {
+    ScreenVariantGroupValue,
+    transformScreenVariantGroupValueToJSON,
+    transformJSONToScreenVariantGroupValue
+} from './screen-variant-group-value';
 
 
 export const transformScreenVariantGroupToJSON = function (value: ScreenVariantGroup): any {
     return {
         id: value.id,
-        name: value.name
+        name: value.name,
+        variants: value.variants.map(transformScreenVariantGroupValueToJSON)
     }
 }
 
 export const transformJSONToScreenVariantGroup = function (value: any): ScreenVariantGroup {
     return {
         id: value.id,
-        name: value.name
+        name: value.name,
+        variants: value.variants.map(transformJSONToScreenVariantGroupValue)
     }
 }
 
 /**
- * Variant group that contains the screen
+ * 
  * @export
  * @interface ScreenVariantGroup
  */
 export interface ScreenVariantGroup {
     /**
-     * Unique id of the screen variant
+     * The unique id of the screen variant
      * @type {string}
      * @memberof ScreenVariantGroup
      */
     id: string;
     /**
-     * Name of the screen variant
+     * The name of the screen variant
      * @type {string}
      * @memberof ScreenVariantGroup
      */
     name: string;
+    /**
+     * 
+     * @type {Array<ScreenVariantGroupValue>}
+     * @memberof ScreenVariantGroup
+     */
+    variants: Array<ScreenVariantGroupValue>;
 }
 
 

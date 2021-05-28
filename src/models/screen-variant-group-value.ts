@@ -14,14 +14,14 @@
 
 
 
-export const transformScreenVariantVariantsToJSON = function (value: ScreenVariantVariants): any {
+export const transformScreenVariantGroupValueToJSON = function (value: ScreenVariantGroupValue): any {
     return {
         screen_id: value.screenId,
         value: value.value
     }
 }
 
-export const transformJSONToScreenVariantVariants = function (value: any): ScreenVariantVariants {
+export const transformJSONToScreenVariantGroupValue = function (value: any): ScreenVariantGroupValue {
     return {
         screenId: value.screen_id,
         value: value.value
@@ -31,19 +31,19 @@ export const transformJSONToScreenVariantVariants = function (value: any): Scree
 /**
  * 
  * @export
- * @interface ScreenVariantVariants
+ * @interface ScreenVariantGroupValue
  */
-export interface ScreenVariantVariants {
+export interface ScreenVariantGroupValue {
     /**
      * Unique id of the variant screen
      * @type {string}
-     * @memberof ScreenVariantVariants
+     * @memberof ScreenVariantGroupValue
      */
     screenId: string;
     /**
      * Value for the variant
      * @type {string}
-     * @memberof ScreenVariantVariants
+     * @memberof ScreenVariantGroupValue
      */
     value: string;
 }
