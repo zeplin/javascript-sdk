@@ -70,6 +70,7 @@ Check out the [API documentation](https://docs.zeplin.dev/reference) for complet
 
 - [Command-line app using personal access token](./examples/cli-with-personal-access-token)
 - [Simple OAuth application](./examples/oauth-app)
+- [Publishing screens and screen versions](./examples/publishing-screens)
 
 ## License
 
