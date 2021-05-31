@@ -28,7 +28,7 @@ export const transformVersionCommitToJSON = function (value: VersionCommit): any
     return {
         message: value.message,
         author: value.author && transformUserToJSON(value.author),
-        color: transformVersionCommitColorToJSON(value.color)
+        color: value.color && transformVersionCommitColorToJSON(value.color)
     }
 }
 
@@ -36,7 +36,7 @@ export const transformJSONToVersionCommit = function (value: any): VersionCommit
     return {
         message: value.message,
         author: value.author && transformJSONToUser(value.author),
-        color: transformJSONToVersionCommitColor(value.color)
+        color: value.color && transformJSONToVersionCommitColor(value.color)
     }
 }
 
@@ -63,7 +63,7 @@ export interface VersionCommit {
      * @type {VersionCommitColor}
      * @memberof VersionCommit
      */
-    color: VersionCommitColor;
+    color?: VersionCommitColor;
 }
 
 

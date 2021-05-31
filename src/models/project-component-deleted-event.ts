@@ -13,15 +13,15 @@
 
 
 import {
+    ProjectComponentDeletedEventContext,
+    transformProjectComponentDeletedEventContextToJSON,
+    transformJSONToProjectComponentDeletedEventContext
+} from './project-component-deleted-event-context';
+import {
     ProjectComponentDeletedEventResource,
     transformProjectComponentDeletedEventResourceToJSON,
     transformJSONToProjectComponentDeletedEventResource
 } from './project-component-deleted-event-resource';
-import {
-    ProjectComponentEventContext,
-    transformProjectComponentEventContextToJSON,
-    transformJSONToProjectComponentEventContext
-} from './project-component-event-context';
 import {
     WebhookEventActor,
     transformWebhookEventActorToJSON,
@@ -35,7 +35,7 @@ export const transformProjectComponentDeletedEventToJSON = function (value: Proj
         action: value.action,
         timestamp: value.timestamp,
         resource: transformProjectComponentDeletedEventResourceToJSON(value.resource),
-        context: transformProjectComponentEventContextToJSON(value.context),
+        context: transformProjectComponentDeletedEventContextToJSON(value.context),
         actor: transformWebhookEventActorToJSON(value.actor)
     }
 }
@@ -46,7 +46,7 @@ export const transformJSONToProjectComponentDeletedEvent = function (value: any)
         action: value.action,
         timestamp: value.timestamp,
         resource: transformJSONToProjectComponentDeletedEventResource(value.resource),
-        context: transformJSONToProjectComponentEventContext(value.context),
+        context: transformJSONToProjectComponentDeletedEventContext(value.context),
         actor: transformJSONToWebhookEventActor(value.actor)
     }
 }
@@ -83,10 +83,10 @@ export interface ProjectComponentDeletedEvent {
     resource: ProjectComponentDeletedEventResource;
     /**
      * 
-     * @type {ProjectComponentEventContext}
+     * @type {ProjectComponentDeletedEventContext}
      * @memberof ProjectComponentDeletedEvent
      */
-    context: ProjectComponentEventContext;
+    context: ProjectComponentDeletedEventContext;
     /**
      * 
      * @type {WebhookEventActor}

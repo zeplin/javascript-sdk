@@ -18,10 +18,10 @@ import {
     transformJSONToProjectComponentDeletedEventResource
 } from './project-component-deleted-event-resource';
 import {
-    StyleguideComponentEventContext,
-    transformStyleguideComponentEventContextToJSON,
-    transformJSONToStyleguideComponentEventContext
-} from './styleguide-component-event-context';
+    StyleguideComponentDeletedEventContext,
+    transformStyleguideComponentDeletedEventContextToJSON,
+    transformJSONToStyleguideComponentDeletedEventContext
+} from './styleguide-component-deleted-event-context';
 import {
     WebhookEventActor,
     transformWebhookEventActorToJSON,
@@ -35,7 +35,7 @@ export const transformStyleguideComponentDeletedEventToJSON = function (value: S
         action: value.action,
         timestamp: value.timestamp,
         resource: transformProjectComponentDeletedEventResourceToJSON(value.resource),
-        context: transformStyleguideComponentEventContextToJSON(value.context),
+        context: transformStyleguideComponentDeletedEventContextToJSON(value.context),
         actor: transformWebhookEventActorToJSON(value.actor)
     }
 }
@@ -46,7 +46,7 @@ export const transformJSONToStyleguideComponentDeletedEvent = function (value: a
         action: value.action,
         timestamp: value.timestamp,
         resource: transformJSONToProjectComponentDeletedEventResource(value.resource),
-        context: transformJSONToStyleguideComponentEventContext(value.context),
+        context: transformJSONToStyleguideComponentDeletedEventContext(value.context),
         actor: transformJSONToWebhookEventActor(value.actor)
     }
 }
@@ -83,10 +83,10 @@ export interface StyleguideComponentDeletedEvent {
     resource: ProjectComponentDeletedEventResource;
     /**
      * 
-     * @type {StyleguideComponentEventContext}
+     * @type {StyleguideComponentDeletedEventContext}
      * @memberof StyleguideComponentDeletedEvent
      */
-    context: StyleguideComponentEventContext;
+    context: StyleguideComponentDeletedEventContext;
     /**
      * 
      * @type {WebhookEventActor}
