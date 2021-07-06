@@ -51,7 +51,7 @@ export interface OrganizationMemberInviteBody {
      */
     tags?: Set<string>;
     /**
-     * The role of the user in the organization
+     * The role of the user in the organization  ☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API. 
      * @type {string}
      * @memberof OrganizationMemberInviteBody
      */

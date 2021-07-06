@@ -37,7 +37,7 @@ export const transformJSONToUser = function (value: any): User {
 }
 
 /**
- * Basic info about Zeplin users.  Note: The email alias (the `email` field) is a Zeplin-only alias, which can be used with the Emailing API to send emails to Zeplin users.  In order a Zeplin app send an email to a Zeplin user:  - Zeplin app should have been approved by Zeplin to use the Emailing API  - The user should authorize the app so that it can send emails to the user through the Zeplin alias.  If you\'re interested in using the Emailing API, reach us at dx@zeplin.io. 
+ * Basic info about Zeplin users.  Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.  You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.  ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.* 
  * @export
  * @interface User
  */

@@ -531,11 +531,11 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         /**
          * List all organizations that user is a member of
          * @summary Get organizations
-         * @param {Set<'owner' | 'admin' | 'editor' | 'member'>} [role] Filter by role  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrganizations: async (role?: Set<'owner' | 'admin' | 'editor' | 'member'>, options: any = {}): Promise<RequestArgs> => {
+        getOrganizations: async (role?: Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/v1/organizations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -833,11 +833,11 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
         /**
          * List all organizations that user is a member of
          * @summary Get organizations
-         * @param {Set<'owner' | 'admin' | 'editor' | 'member'>} [role] Filter by role  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOrganizations(role?: Set<'owner' | 'admin' | 'editor' | 'member'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async getOrganizations(role?: Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizations(role, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -998,11 +998,11 @@ export interface OrganizationsApiGetOrganizationStyleguidesSearchParams {
  */
 export interface OrganizationsApiGetOrganizationsSearchParams {
     /**
-     * Filter by role  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
-     * @type {Set<'owner' | 'admin' | 'editor' | 'member'>}
+     * Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+     * @type {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>}
      * @memberof OrganizationsApiGetOrganizationsSearchParams
      */
-    readonly role?: Set<'owner' | 'admin' | 'editor' | 'member'>;
+    readonly role?: Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>;
 }
 
 
