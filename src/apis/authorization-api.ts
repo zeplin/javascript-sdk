@@ -42,7 +42,15 @@ export const AuthorizationApiAxiosParamCreator = function (configuration?: Confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        oAuthAuthorize: (responseType: string, clientId: string, redirectUri: string, state?: string, options: any = {}): RequestArgs => {
+        oAuthAuthorize: (
+            responseType: string, 
+            clientId: string, 
+            redirectUri: string, 
+            state?: string, 
+            codeChallenge?: string, 
+            codeChallengeMethod?: string, 
+            options: any = {}
+        ): RequestArgs => {
             // verify required parameter 'responseType' is not null or undefined
             assertParamExists('oAuthAuthorize', 'responseType', responseType)
             // verify required parameter 'clientId' is not null or undefined
@@ -77,6 +85,14 @@ export const AuthorizationApiAxiosParamCreator = function (configuration?: Confi
                 localVarQueryParameter['state'] = state;
             }
 
+            if (codeChallenge !== undefined) {
+                localVarQueryParameter['code_challenge'] = codeChallenge;
+                localVarQueryParameter['code_challenge_method'] = 'S256';
+            }
+
+            if (codeChallengeMethod !== undefined) {
+                localVarQueryParameter['code_challenge_method'] = codeChallengeMethod;
+            }
 
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -174,6 +190,20 @@ export interface AuthorizationApiGetAuthorizationUrlSearchParams {
      * @memberof AuthorizationApiGetAuthorizationUrlSearchParams
      */
     readonly state?: string
+
+    /**
+     * RECOMMENDED. A PKCE code challenge derived from the code verifier, to be verified against later.
+     * @type {string}
+     * @memberof AuthorizationApiGetAuthorizationUrlSearchParams
+     */
+    readonly codeChallenge?: string
+
+    /**
+     * RECOMMENDED. PKCE code verifier transformation method.
+     * @type {string}
+     * @memberof AuthorizationApiGetAuthorizationUrlSearchParams
+     */
+    readonly codeChallengeMethod?: string
 }
 
 
@@ -206,7 +236,13 @@ export interface AuthorizationApiCreateTokenParams {
      * @type {string}
      * @memberof AuthorizationApiCreateTokenParams
      */
-    clientSecret: string;
+    clientSecret?: string;
+    /**
+     * A cryptographically random string that is used to correlate the authorization request to the token request
+     * @type {string}
+     * @memberof AuthorizationApiCreateTokenParams
+     */
+    codeVerifier?: string;
 }
 
 
@@ -233,7 +269,13 @@ export interface AuthorizationApiRefreshTokenParams {
      * @type {string}
      * @memberof AuthorizationApiRefreshTokenParams
      */
-    clientSecret: string;
+    clientSecret?: string;
+    /**
+     * A cryptographically random string that is used to correlate the authorization request to the token request
+     * @type {string}
+     * @memberof AuthorizationApiRefreshTokenParams
+     */
+    codeVerifier?: string;
 }
 
 
@@ -256,7 +298,15 @@ export class AuthorizationApi extends BaseAPI {
      */
     public getAuthorizationUrl(searchParams: AuthorizationApiGetAuthorizationUrlSearchParams, options?: any): string {
         const paramCreator = AuthorizationApiAxiosParamCreator(this.configuration);
-        const params = paramCreator.oAuthAuthorize("code", searchParams.clientId, searchParams.redirectUri, searchParams.state, options);
+        const params = paramCreator.oAuthAuthorize(
+            "code", 
+            searchParams.clientId, 
+            searchParams.redirectUri, 
+            searchParams.state, 
+            searchParams.codeChallenge, 
+            searchParams.codeChallengeMethod, 
+            options
+        );
         return this.axios.getUri({
             ...params.options,
             url: this.basePath + params.url

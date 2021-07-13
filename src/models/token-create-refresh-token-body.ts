@@ -19,7 +19,8 @@ export const transformTokenCreateRefreshTokenBodyToJSON = function (value: Token
         grant_type: value.grantType,
         refresh_token: value.refreshToken,
         client_id: value.clientId,
-        client_secret: value.clientSecret
+        client_secret: value.clientSecret,
+        code_verifier: value.codeVerifier
     }
 }
 
@@ -28,7 +29,8 @@ export const transformJSONToTokenCreateRefreshTokenBody = function (value: any):
         grantType: value.grant_type,
         refreshToken: value.refresh_token,
         clientId: value.client_id,
-        clientSecret: value.client_secret
+        clientSecret: value.client_secret,
+        codeVerifier: value.code_verifier
     }
 }
 
@@ -57,11 +59,17 @@ export interface TokenCreateRefreshTokenBody {
      */
     clientId: string;
     /**
-     * The `client_secret` of your Zeplin app
+     * The `client_secret` of your Zeplin app  **Note**: `client_secret` is required for `code` values obtained without using a PKCE `code_challenge` value.  **Warning**: `client_secret` property should only be used in a server-side application.  If your Zeplin app is a public client, you should use PKCE authorization flow. 
      * @type {string}
      * @memberof TokenCreateRefreshTokenBody
      */
-    clientSecret: string;
+    clientSecret?: string;
+    /**
+     * A cryptographically random string that is used to correlate the authorization request to the token request
+     * @type {string}
+     * @memberof TokenCreateRefreshTokenBody
+     */
+    codeVerifier?: string;
 }
 
 

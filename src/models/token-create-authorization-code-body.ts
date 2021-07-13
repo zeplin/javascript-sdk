@@ -20,7 +20,8 @@ export const transformTokenCreateAuthorizationCodeBodyToJSON = function (value: 
         code: value.code,
         redirect_uri: value.redirectUri,
         client_id: value.clientId,
-        client_secret: value.clientSecret
+        client_secret: value.clientSecret,
+        code_verifier: value.codeVerifier
     }
 }
 
@@ -30,7 +31,8 @@ export const transformJSONToTokenCreateAuthorizationCodeBody = function (value: 
         code: value.code,
         redirectUri: value.redirect_uri,
         clientId: value.client_id,
-        clientSecret: value.client_secret
+        clientSecret: value.client_secret,
+        codeVerifier: value.code_verifier
     }
 }
 
@@ -65,11 +67,17 @@ export interface TokenCreateAuthorizationCodeBody {
      */
     clientId: string;
     /**
-     * The `client_secret` of your Zeplin app
+     * The `client_secret` of your Zeplin app  **Note**: `client_secret` is required for `code` values obtained without using a PKCE `code_challenge` value.  **Warning**: `client_secret` property should only be used in a server-side application.  If your Zeplin app is a public client, you should use PKCE authorization flow. 
      * @type {string}
      * @memberof TokenCreateAuthorizationCodeBody
      */
-    clientSecret: string;
+    clientSecret?: string;
+    /**
+     * A cryptographically random string that is used to correlate the authorization request to the token request
+     * @type {string}
+     * @memberof TokenCreateAuthorizationCodeBody
+     */
+    codeVerifier?: string;
 }
 
 
