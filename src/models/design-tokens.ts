@@ -32,7 +32,7 @@ import {
 export const transformDesignTokensToJSON = function (value: DesignTokens): any {
     return {
         colors: Object.fromEntries(Object.entries(value.colors).map(([key, val]) => [key, transformColorDesignTokenToJSON(val)])),
-        spacings: Object.fromEntries(Object.entries(value.spacings).map(([key, val]) => [key, transformSpacingDesignTokenToJSON(val)])),
+        spacing: Object.fromEntries(Object.entries(value.spacing).map(([key, val]) => [key, transformSpacingDesignTokenToJSON(val)])),
         text_styles: Object.fromEntries(Object.entries(value.textStyles).map(([key, val]) => [key, transformTextStyleDesignTokenToJSON(val)]))
     }
 }
@@ -40,7 +40,7 @@ export const transformDesignTokensToJSON = function (value: DesignTokens): any {
 export const transformJSONToDesignTokens = function (value: any): DesignTokens {
     return {
         colors: Object.fromEntries(Object.entries(value.colors).map(([key, val]) => [key, transformJSONToColorDesignToken(val)])),
-        spacings: Object.fromEntries(Object.entries(value.spacings).map(([key, val]) => [key, transformJSONToSpacingDesignToken(val)])),
+        spacing: Object.fromEntries(Object.entries(value.spacing).map(([key, val]) => [key, transformJSONToSpacingDesignToken(val)])),
         textStyles: Object.fromEntries(Object.entries(value.text_styles).map(([key, val]) => [key, transformJSONToTextStyleDesignToken(val)]))
     }
 }
@@ -62,7 +62,7 @@ export interface DesignTokens {
      * @type {{ [key: string]: SpacingDesignToken; }}
      * @memberof DesignTokens
      */
-    spacings: { [key: string]: SpacingDesignToken; };
+    spacing: { [key: string]: SpacingDesignToken; };
     /**
      * Text style tokens
      * @type {{ [key: string]: TextStyleDesignToken; }}
