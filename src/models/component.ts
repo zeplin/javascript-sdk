@@ -23,6 +23,11 @@ import {
     transformJSONToComponentVariantProperty
 } from './component-variant-property';
 import {
+    ComponentVersion,
+    transformComponentVersionToJSON,
+    transformJSONToComponentVersion
+} from './component-version';
+import {
     SnapshotImage,
     transformSnapshotImageToJSON,
     transformJSONToSnapshotImage
@@ -38,7 +43,8 @@ export const transformComponentToJSON = function (value: Component): any {
         created: value.created,
         updated: value.updated,
         section: value.section && transformComponentSectionReferenceToJSON(value.section),
-        variant_properties: value.variantProperties && value.variantProperties.map(transformComponentVariantPropertyToJSON)
+        variant_properties: value.variantProperties && value.variantProperties.map(transformComponentVariantPropertyToJSON),
+        latest_version: value.latestVersion && transformComponentVersionToJSON(value.latestVersion)
     }
 }
 
@@ -51,7 +57,8 @@ export const transformJSONToComponent = function (value: any): Component {
         created: value.created,
         updated: value.updated,
         section: value.section && transformJSONToComponentSectionReference(value.section),
-        variantProperties: value.variant_properties && value.variant_properties.map(transformJSONToComponentVariantProperty)
+        variantProperties: value.variant_properties && value.variant_properties.map(transformJSONToComponentVariantProperty),
+        latestVersion: value.latest_version && transformJSONToComponentVersion(value.latest_version)
     }
 }
 
@@ -109,6 +116,12 @@ export interface Component {
      * @memberof Component
      */
     variantProperties?: Array<ComponentVariantProperty>;
+    /**
+     * 
+     * @type {ComponentVersion}
+     * @memberof Component
+     */
+    latestVersion?: ComponentVersion;
 }
 
 
