@@ -18,6 +18,11 @@ import {
     transformJSONToEntityReference
 } from './entity-reference';
 import {
+    ResourceSource,
+    transformResourceSourceToJSON,
+    transformJSONToResourceSource
+} from './resource-source';
+import {
     SpacingTokenColor,
     transformSpacingTokenColorToJSON,
     transformJSONToSpacingTokenColor
@@ -30,7 +35,8 @@ export const transformSpacingTokenToJSON = function (value: SpacingToken): any {
         name: value.name,
         value: value.value,
         color: transformSpacingTokenColorToJSON(value.color),
-        section: transformEntityReferenceToJSON(value.section)
+        section: transformEntityReferenceToJSON(value.section),
+        source: value.source && transformResourceSourceToJSON(value.source)
     }
 }
 
@@ -40,7 +46,8 @@ export const transformJSONToSpacingToken = function (value: any): SpacingToken {
         name: value.name,
         value: value.value,
         color: transformJSONToSpacingTokenColor(value.color),
-        section: transformJSONToEntityReference(value.section)
+        section: transformJSONToEntityReference(value.section),
+        source: value.source && transformJSONToResourceSource(value.source)
     }
 }
 
@@ -80,6 +87,12 @@ export interface SpacingToken {
      * @memberof SpacingToken
      */
     section: EntityReference;
+    /**
+     * 
+     * @type {ResourceSource}
+     * @memberof SpacingToken
+     */
+    source?: ResourceSource;
 }
 
 

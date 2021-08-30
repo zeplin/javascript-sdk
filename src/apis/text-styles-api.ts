@@ -50,10 +50,11 @@ export const TextStylesApiAxiosParamCreator = function (configuration?: Configur
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectTextStyles: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getProjectTextStyles: async (projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectTextStyles', 'projectId', projectId)
             const localVarPath = `/v1/projects/{project_id}/text_styles`
@@ -85,6 +86,10 @@ export const TextStylesApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['offset'] = offset;
             }
 
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
+
     
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -104,10 +109,11 @@ export const TextStylesApiAxiosParamCreator = function (configuration?: Configur
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideTextStyles: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideTextStyles: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideTextStyles', 'styleguideId', styleguideId)
             const localVarPath = `/v1/styleguides/{styleguide_id}/text_styles`
@@ -145,6 +151,10 @@ export const TextStylesApiAxiosParamCreator = function (configuration?: Configur
 
             if (linkedStyleguide !== undefined) {
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
 
     
@@ -278,11 +288,12 @@ export const TextStylesApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectTextStyles(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectTextStyles(projectId, limit, offset, options);
+        async getProjectTextStyles(projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectTextStyles(projectId, limit, offset, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -293,11 +304,12 @@ export const TextStylesApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideTextStyles(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideTextStyles(styleguideId, limit, offset, linkedProject, linkedStyleguide, options);
+        async getStyleguideTextStyles(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideTextStyles(styleguideId, limit, offset, linkedProject, linkedStyleguide, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -349,6 +361,13 @@ export interface TextStylesApiGetProjectTextStylesSearchParams {
      * @memberof TextStylesApiGetProjectTextStylesSearchParams
      */
     readonly offset?: number;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof TextStylesApiGetProjectTextStylesSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 /**
@@ -384,6 +403,13 @@ export interface TextStylesApiGetStyleguideTextStylesSearchParams {
      * @memberof TextStylesApiGetStyleguideTextStylesSearchParams
      */
     readonly linkedStyleguide?: string;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof TextStylesApiGetStyleguideTextStylesSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 
@@ -407,7 +433,7 @@ export class TextStylesApi extends BaseAPI {
      */
     public async getProjectTextStyles(projectId: string, searchParams: TextStylesApiGetProjectTextStylesSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<TextStyle>>> {
         const textStylesApiFp = TextStylesApiFp(this.configuration);
-        const request = await textStylesApiFp.getProjectTextStyles(projectId, searchParams.limit, searchParams.offset, options);
+        const request = await textStylesApiFp.getProjectTextStyles(projectId, searchParams.limit, searchParams.offset, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -426,7 +452,7 @@ export class TextStylesApi extends BaseAPI {
      */
     public async getStyleguideTextStyles(styleguideId: string, searchParams: TextStylesApiGetStyleguideTextStylesSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<TextStyle>>> {
         const textStylesApiFp = TextStylesApiFp(this.configuration);
-        const request = await textStylesApiFp.getStyleguideTextStyles(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, options);
+        const request = await textStylesApiFp.getStyleguideTextStyles(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,

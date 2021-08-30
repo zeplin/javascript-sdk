@@ -12,6 +12,11 @@
  */
 
 
+import {
+    ResourceSource,
+    transformResourceSourceToJSON,
+    transformJSONToResourceSource
+} from './resource-source';
 
 
 export const transformColorToJSON = function (value: Color): any {
@@ -23,7 +28,8 @@ export const transformColorToJSON = function (value: Color): any {
         r: value.r,
         g: value.g,
         b: value.b,
-        a: value.a
+        a: value.a,
+        source: value.source && transformResourceSourceToJSON(value.source)
     }
 }
 
@@ -36,7 +42,8 @@ export const transformJSONToColor = function (value: any): Color {
         r: value.r,
         g: value.g,
         b: value.b,
-        a: value.a
+        a: value.a,
+        source: value.source && transformJSONToResourceSource(value.source)
     }
 }
 
@@ -94,6 +101,12 @@ export interface Color {
      * @memberof Color
      */
     a: number;
+    /**
+     * 
+     * @type {ResourceSource}
+     * @memberof Color
+     */
+    source?: ResourceSource;
 }
 
 

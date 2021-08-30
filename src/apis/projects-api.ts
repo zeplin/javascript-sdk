@@ -46,6 +46,12 @@ import {
 } from '../models';
 // @ts-ignore
 import {
+    ProjectMemberInviteBody,
+    transformProjectMemberInviteBodyToJSON,
+    transformJSONToProjectMemberInviteBody
+} from '../models';
+// @ts-ignore
+import {
     ProjectStatusEnum,
     transformProjectStatusEnumToJSON,
     transformJSONToProjectStatusEnum
@@ -267,6 +273,100 @@ export const ProjectsApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
+         * Invite a member to the project.
+         * @summary Invite a member
+         * @param {string} projectId Project id
+         * @param {ProjectMemberInviteBody} projectMemberInviteBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        inviteProjectMember: async (projectId: string, projectMemberInviteBody: ProjectMemberInviteBody, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('inviteProjectMember', 'projectId', projectId)
+            // verify required parameter 'projectMemberInviteBody' is not null or undefined
+            assertParamExists('inviteProjectMember', 'projectMemberInviteBody', projectMemberInviteBody)
+            const localVarPath = `/v1/projects/{project_id}/members`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transformProjectMemberInviteBodyToJSON(projectMemberInviteBody), localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Remove a member from the project.
+         * @summary Remove a member
+         * @param {string} projectId Project id
+         * @param {string} memberId Member id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeProjectMember: async (projectId: string, memberId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('removeProjectMember', 'projectId', projectId)
+            // verify required parameter 'memberId' is not null or undefined
+            assertParamExists('removeProjectMember', 'memberId', memberId)
+            const localVarPath = `/v1/projects/{project_id}/members/{member_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"member_id"}}`, encodeURIComponent(String(memberId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update a project\'s name and description
          * @summary Update a project
          * @param {string} projectId Project id
@@ -376,6 +476,30 @@ export const ProjectsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Invite a member to the project.
+         * @summary Invite a member
+         * @param {string} projectId Project id
+         * @param {ProjectMemberInviteBody} projectMemberInviteBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async inviteProjectMember(projectId: string, projectMemberInviteBody: ProjectMemberInviteBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.inviteProjectMember(projectId, projectMemberInviteBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Remove a member from the project.
+         * @summary Remove a member
+         * @param {string} projectId Project id
+         * @param {string} memberId Member id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeProjectMember(projectId: string, memberId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeProjectMember(projectId, memberId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Update a project\'s name and description
          * @summary Update a project
          * @param {string} projectId Project id
@@ -471,6 +595,8 @@ export interface ProjectsApiGetProjectsSearchParams {
 
 
 
+
+
 /**
  * ProjectsApi - object-oriented interface
  * @export
@@ -550,6 +676,38 @@ export class ProjectsApi extends BaseAPI {
             ...response,
             data: response.data.map(transformJSONToProject)
         };
+    }
+
+    /**
+     * Invite a member to the project.
+     * @summary Invite a member
+     * @param {string} projectId Project id
+     * @param {ProjectMemberInviteBody} projectMemberInviteBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public async inviteProjectMember(projectId: string, projectMemberInviteBody: ProjectMemberInviteBody, options?: any) : Promise<AxiosResponse<void>> {
+        const projectsApiFp = ProjectsApiFp(this.configuration);
+        const request = await projectsApiFp.inviteProjectMember(projectId, projectMemberInviteBody, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
+    }
+
+    /**
+     * Remove a member from the project.
+     * @summary Remove a member
+     * @param {string} projectId Project id
+     * @param {string} memberId Member id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectsApi
+     */
+    public async removeProjectMember(projectId: string, memberId: string, options?: any) : Promise<AxiosResponse<void>> {
+        const projectsApiFp = ProjectsApiFp(this.configuration);
+        const request = await projectsApiFp.removeProjectMember(projectId, memberId, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
     }
 
     /**

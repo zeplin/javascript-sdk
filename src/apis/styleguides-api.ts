@@ -52,6 +52,12 @@ import {
 } from '../models';
 // @ts-ignore
 import {
+    StyleguideMemberInviteBody,
+    transformStyleguideMemberInviteBodyToJSON,
+    transformJSONToStyleguideMemberInviteBody
+} from '../models';
+// @ts-ignore
+import {
     StyleguideStatusEnum,
     transformStyleguideStatusEnumToJSON,
     transformJSONToStyleguideStatusEnum
@@ -355,6 +361,100 @@ export const StyleguidesApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
+         * Invite a member to the styleguide.
+         * @summary Invite a member
+         * @param {string} styleguideId Styleguide id
+         * @param {StyleguideMemberInviteBody} styleguideMemberInviteBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        inviteStyleguideMember: async (styleguideId: string, styleguideMemberInviteBody: StyleguideMemberInviteBody, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'styleguideId' is not null or undefined
+            assertParamExists('inviteStyleguideMember', 'styleguideId', styleguideId)
+            // verify required parameter 'styleguideMemberInviteBody' is not null or undefined
+            assertParamExists('inviteStyleguideMember', 'styleguideMemberInviteBody', styleguideMemberInviteBody)
+            const localVarPath = `/v1/styleguides/{styleguide_id}/members`
+                .replace(`{${"styleguide_id"}}`, encodeURIComponent(String(styleguideId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transformStyleguideMemberInviteBodyToJSON(styleguideMemberInviteBody), localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Remove a member from the styleguide.
+         * @summary Remove a member
+         * @param {string} styleguideId Styleguide id
+         * @param {string} memberId Member id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeStyleguideMember: async (styleguideId: string, memberId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'styleguideId' is not null or undefined
+            assertParamExists('removeStyleguideMember', 'styleguideId', styleguideId)
+            // verify required parameter 'memberId' is not null or undefined
+            assertParamExists('removeStyleguideMember', 'memberId', memberId)
+            const localVarPath = `/v1/styleguides/{styleguide_id}/members/{member_id}`
+                .replace(`{${"styleguide_id"}}`, encodeURIComponent(String(styleguideId)))
+                .replace(`{${"member_id"}}`, encodeURIComponent(String(memberId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update a styleguide\'s name and description
          * @summary Update a styleguide
          * @param {string} styleguideId Styleguide id
@@ -480,6 +580,30 @@ export const StyleguidesApiFp = function(configuration?: Configuration) {
          */
         async getStyleguides(limit?: number, offset?: number, workspace?: string, status?: StyleguideStatusEnum, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguides(limit, offset, workspace, status, linkedProject, linkedStyleguide, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Invite a member to the styleguide.
+         * @summary Invite a member
+         * @param {string} styleguideId Styleguide id
+         * @param {StyleguideMemberInviteBody} styleguideMemberInviteBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async inviteStyleguideMember(styleguideId: string, styleguideMemberInviteBody: StyleguideMemberInviteBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.inviteStyleguideMember(styleguideId, styleguideMemberInviteBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Remove a member from the styleguide.
+         * @summary Remove a member
+         * @param {string} styleguideId Styleguide id
+         * @param {string} memberId Member id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeStyleguideMember(styleguideId: string, memberId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeStyleguideMember(styleguideId, memberId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -647,6 +771,8 @@ export interface StyleguidesApiGetStyleguidesSearchParams {
 
 
 
+
+
 /**
  * StyleguidesApi - object-oriented interface
  * @export
@@ -746,6 +872,38 @@ export class StyleguidesApi extends BaseAPI {
             ...response,
             data: response.data.map(transformJSONToStyleguide)
         };
+    }
+
+    /**
+     * Invite a member to the styleguide.
+     * @summary Invite a member
+     * @param {string} styleguideId Styleguide id
+     * @param {StyleguideMemberInviteBody} styleguideMemberInviteBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StyleguidesApi
+     */
+    public async inviteStyleguideMember(styleguideId: string, styleguideMemberInviteBody: StyleguideMemberInviteBody, options?: any) : Promise<AxiosResponse<void>> {
+        const styleguidesApiFp = StyleguidesApiFp(this.configuration);
+        const request = await styleguidesApiFp.inviteStyleguideMember(styleguideId, styleguideMemberInviteBody, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
+    }
+
+    /**
+     * Remove a member from the styleguide.
+     * @summary Remove a member
+     * @param {string} styleguideId Styleguide id
+     * @param {string} memberId Member id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StyleguidesApi
+     */
+    public async removeStyleguideMember(styleguideId: string, memberId: string, options?: any) : Promise<AxiosResponse<void>> {
+        const styleguidesApiFp = StyleguidesApiFp(this.configuration);
+        const request = await styleguidesApiFp.removeStyleguideMember(styleguideId, memberId, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
     }
 
     /**

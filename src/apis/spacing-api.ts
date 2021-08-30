@@ -108,10 +108,11 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectSpacingTokens: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getProjectSpacingTokens: async (projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectSpacingTokens', 'projectId', projectId)
             const localVarPath = `/v1/projects/{project_id}/spacing_tokens`
@@ -141,6 +142,10 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (offset !== undefined) {
                 localVarQueryParameter['offset'] = offset;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
 
     
@@ -224,10 +229,11 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideSpacingTokens: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideSpacingTokens: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideSpacingTokens', 'styleguideId', styleguideId)
             const localVarPath = `/v1/styleguides/{styleguide_id}/spacing_tokens`
@@ -265,6 +271,10 @@ export const SpacingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (linkedStyleguide !== undefined) {
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
 
     
@@ -403,11 +413,12 @@ export const SpacingApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectSpacingTokens(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectSpacingTokens(projectId, limit, offset, options);
+        async getProjectSpacingTokens(projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectSpacingTokens(projectId, limit, offset, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -433,11 +444,12 @@ export const SpacingApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideSpacingTokens(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideSpacingTokens(styleguideId, limit, offset, linkedProject, linkedStyleguide, options);
+        async getStyleguideSpacingTokens(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideSpacingTokens(styleguideId, limit, offset, linkedProject, linkedStyleguide, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -510,6 +522,13 @@ export interface SpacingApiGetProjectSpacingTokensSearchParams {
      * @memberof SpacingApiGetProjectSpacingTokensSearchParams
      */
     readonly offset?: number;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof SpacingApiGetProjectSpacingTokensSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 /**
@@ -580,6 +599,13 @@ export interface SpacingApiGetStyleguideSpacingTokensSearchParams {
      * @memberof SpacingApiGetStyleguideSpacingTokensSearchParams
      */
     readonly linkedStyleguide?: string;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof SpacingApiGetStyleguideSpacingTokensSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 
@@ -622,7 +648,7 @@ export class SpacingApi extends BaseAPI {
      */
     public async getProjectSpacingTokens(projectId: string, searchParams: SpacingApiGetProjectSpacingTokensSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<SpacingToken>>> {
         const spacingApiFp = SpacingApiFp(this.configuration);
-        const request = await spacingApiFp.getProjectSpacingTokens(projectId, searchParams.limit, searchParams.offset, options);
+        const request = await spacingApiFp.getProjectSpacingTokens(projectId, searchParams.limit, searchParams.offset, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -660,7 +686,7 @@ export class SpacingApi extends BaseAPI {
      */
     public async getStyleguideSpacingTokens(styleguideId: string, searchParams: SpacingApiGetStyleguideSpacingTokensSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<SpacingToken>>> {
         const spacingApiFp = SpacingApiFp(this.configuration);
-        const request = await spacingApiFp.getStyleguideSpacingTokens(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, options);
+        const request = await spacingApiFp.getStyleguideSpacingTokens(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,

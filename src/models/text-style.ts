@@ -17,6 +17,11 @@ import {
     transformColorDataToJSON,
     transformJSONToColorData
 } from './color-data';
+import {
+    ResourceSource,
+    transformResourceSourceToJSON,
+    transformJSONToResourceSource
+} from './resource-source';
 
 
 export const transformTextStyleToJSON = function (value: TextStyle): any {
@@ -33,7 +38,8 @@ export const transformTextStyleToJSON = function (value: TextStyle): any {
         line_height: value.lineHeight,
         letter_spacing: value.letterSpacing,
         text_align: value.textAlign,
-        color: value.color && transformColorDataToJSON(value.color)
+        color: value.color && transformColorDataToJSON(value.color),
+        source: value.source && transformResourceSourceToJSON(value.source)
     }
 }
 
@@ -51,7 +57,8 @@ export const transformJSONToTextStyle = function (value: any): TextStyle {
         lineHeight: value.line_height,
         letterSpacing: value.letter_spacing,
         textAlign: value.text_align,
-        color: value.color && transformJSONToColorData(value.color)
+        color: value.color && transformJSONToColorData(value.color),
+        source: value.source && transformJSONToResourceSource(value.source)
     }
 }
 
@@ -139,6 +146,12 @@ export interface TextStyle {
      * @memberof TextStyle
      */
     color?: ColorData;
+    /**
+     * 
+     * @type {ResourceSource}
+     * @memberof TextStyle
+     */
+    source?: ResourceSource;
 }
 
 

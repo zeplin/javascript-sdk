@@ -158,10 +158,11 @@ export const ColorsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectColors: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getProjectColors: async (projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectColors', 'projectId', projectId)
             const localVarPath = `/v1/projects/{project_id}/colors`
@@ -193,6 +194,10 @@ export const ColorsApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['offset'] = offset;
             }
 
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
+
     
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -212,10 +217,11 @@ export const ColorsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideColors: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideColors: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideColors', 'styleguideId', styleguideId)
             const localVarPath = `/v1/styleguides/{styleguide_id}/colors`
@@ -253,6 +259,10 @@ export const ColorsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (linkedStyleguide !== undefined) {
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
 
     
@@ -410,11 +420,12 @@ export const ColorsApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectColors(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectColors(projectId, limit, offset, options);
+        async getProjectColors(projectId: string, limit?: number, offset?: number, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectColors(projectId, limit, offset, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -425,11 +436,12 @@ export const ColorsApiFp = function(configuration?: Configuration) {
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideColors(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideColors(styleguideId, limit, offset, linkedProject, linkedStyleguide, options);
+        async getStyleguideColors(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideColors(styleguideId, limit, offset, linkedProject, linkedStyleguide, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -483,6 +495,13 @@ export interface ColorsApiGetProjectColorsSearchParams {
      * @memberof ColorsApiGetProjectColorsSearchParams
      */
     readonly offset?: number;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ColorsApiGetProjectColorsSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 /**
@@ -518,6 +537,13 @@ export interface ColorsApiGetStyleguideColorsSearchParams {
      * @memberof ColorsApiGetStyleguideColorsSearchParams
      */
     readonly linkedStyleguide?: string;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ColorsApiGetStyleguideColorsSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 
@@ -579,7 +605,7 @@ export class ColorsApi extends BaseAPI {
      */
     public async getProjectColors(projectId: string, searchParams: ColorsApiGetProjectColorsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Color>>> {
         const colorsApiFp = ColorsApiFp(this.configuration);
-        const request = await colorsApiFp.getProjectColors(projectId, searchParams.limit, searchParams.offset, options);
+        const request = await colorsApiFp.getProjectColors(projectId, searchParams.limit, searchParams.offset, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -598,7 +624,7 @@ export class ColorsApi extends BaseAPI {
      */
     public async getStyleguideColors(styleguideId: string, searchParams: ColorsApiGetStyleguideColorsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Color>>> {
         const colorsApiFp = ColorsApiFp(this.configuration);
-        const request = await colorsApiFp.getStyleguideColors(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, options);
+        const request = await colorsApiFp.getStyleguideColors(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
