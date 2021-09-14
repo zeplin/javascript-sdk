@@ -45,16 +45,16 @@ export const transformJSONToSnapshotImage = function (value: any): SnapshotImage
 export interface SnapshotImage {
     /**
      * Width of the component image
-     * @type {string}
+     * @type {number}
      * @memberof SnapshotImage
      */
-    width: string;
+    width: number;
     /**
      * Height of the component image
-     * @type {string}
+     * @type {number}
      * @memberof SnapshotImage
      */
-    height: string;
+    height: number;
     /**
      * 
      * @type {Thumbnails}
