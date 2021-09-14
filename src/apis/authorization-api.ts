@@ -43,12 +43,12 @@ export const AuthorizationApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         oAuthAuthorize: (
-            responseType: string, 
-            clientId: string, 
-            redirectUri: string, 
-            state?: string, 
-            codeChallenge?: string, 
-            codeChallengeMethod?: string, 
+            responseType: string,
+            clientId: string,
+            redirectUri: string,
+            state?: string,
+            codeChallenge?: string,
+            codeChallengeMethod?: "plain" | "S256",
             options: any = {}
         ): RequestArgs => {
             // verify required parameter 'responseType' is not null or undefined
@@ -203,7 +203,7 @@ export interface AuthorizationApiGetAuthorizationUrlSearchParams {
      * @type {string}
      * @memberof AuthorizationApiGetAuthorizationUrlSearchParams
      */
-    readonly codeChallengeMethod?: string
+    readonly codeChallengeMethod?: "plain" | "S256"
 }
 
 
@@ -299,12 +299,12 @@ export class AuthorizationApi extends BaseAPI {
     public getAuthorizationUrl(searchParams: AuthorizationApiGetAuthorizationUrlSearchParams, options?: any): string {
         const paramCreator = AuthorizationApiAxiosParamCreator(this.configuration);
         const params = paramCreator.oAuthAuthorize(
-            "code", 
-            searchParams.clientId, 
-            searchParams.redirectUri, 
-            searchParams.state, 
-            searchParams.codeChallenge, 
-            searchParams.codeChallengeMethod, 
+            "code",
+            searchParams.clientId,
+            searchParams.redirectUri,
+            searchParams.state,
+            searchParams.codeChallenge,
+            searchParams.codeChallengeMethod,
             options
         );
         return this.axios.getUri({
