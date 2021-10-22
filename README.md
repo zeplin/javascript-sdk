@@ -23,7 +23,7 @@ To get started with the SDK, you can create a personal access token from the web
 You can use this token to make API calls for your own Zeplin account.
 
 ```js
-import { ZeplinApi, Configuration } "@zeplin/sdk";
+import { ZeplinApi, Configuration } from "@zeplin/sdk";
 
 const zeplinClient = new ZeplinApi(new Configuration({ accessToken: "ACCESS_TOKEN" }));
 
@@ -43,7 +43,7 @@ The SDK exposes Zeplin API endpoints as methods. These methods are grouped into 
 
 For example:
 ```js
-import { ZeplinApi, Configuration, ScreenNoteColorNameEnum } "@zeplin/sdk";
+import { ZeplinApi, Configuration, ScreenNoteColorNameEnum } from "@zeplin/sdk";
 
 const zeplinClient = new ZeplinApi(new Configuration({ accessToken: "ACCESS_TOKEN" }));
 
