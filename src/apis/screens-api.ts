@@ -34,6 +34,12 @@ import {
 } from '../models';
 // @ts-ignore
 import {
+    Component,
+    transformComponentToJSON,
+    transformJSONToComponent
+} from '../models';
+// @ts-ignore
+import {
     EntityReference,
     transformEntityReferenceToJSON,
     transformJSONToEntityReference
@@ -516,6 +522,72 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             // authentication PersonalAccessToken required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all components in the screen
+         * @summary Get screen components
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenComponents: async (projectId: string, screenId: string, limit?: number, offset?: number, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenComponents', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('getScreenComponents', 'screenId', screenId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/components`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (includeLatestVersion !== undefined) {
+                localVarQueryParameter['include_latest_version'] = includeLatestVersion;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
 
     
     
@@ -1214,6 +1286,22 @@ export const ScreensApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * List all components in the screen
+         * @summary Get screen components
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenComponents(projectId: string, screenId: string, limit?: number, offset?: number, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenComponents(projectId, screenId, limit, offset, includeLatestVersion, includeLinkedStyleguides, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get a screen note by id
          * @summary Get a single screen note
          * @param {string} projectId Project id
@@ -1492,6 +1580,41 @@ export interface ScreensApiGetProjectScreensSearchParams {
 }
 
 
+/**
+ * Search parameters for getScreenComponents operation in ScreensApi.
+ * @export
+ * @interface ScreensApiGetScreenComponentsSearchParams
+ */
+export interface ScreensApiGetScreenComponentsSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof ScreensApiGetScreenComponentsSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof ScreensApiGetScreenComponentsSearchParams
+     */
+    readonly offset?: number;
+
+    /**
+     * Whether to include the latest version data in the Component object
+     * @type {boolean}
+     * @memberof ScreensApiGetScreenComponentsSearchParams
+     */
+    readonly includeLatestVersion?: boolean;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ScreensApiGetScreenComponentsSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
+}
+
 
 /**
  * Search parameters for getScreenNotes operation in ScreensApi.
@@ -1733,6 +1856,26 @@ export class ScreensApi extends BaseAPI {
         return {
             ...response,
             data: transformJSONToScreen(response.data)
+        };
+    }
+
+    /**
+     * List all components in the screen
+     * @summary Get screen components
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {ScreensApiGetScreenComponentsSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenComponents(projectId: string, screenId: string, searchParams: ScreensApiGetScreenComponentsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Component>>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenComponents(projectId, screenId, searchParams.limit, searchParams.offset, searchParams.includeLatestVersion, searchParams.includeLinkedStyleguides, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToComponent)
         };
     }
 

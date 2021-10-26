@@ -336,10 +336,11 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
          * @param {string} organizationId Organization id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {Set<string>} [handle] Filter organization members by email, username or unique identifier of the user  ☝️Note that only organization admins (or higher) can filter members using email addresses.  Example: &#x60;?handle&#x3D;zozo&amp;handle&#x3D;5d9caaecb4a3fa9bc9718686&amp;handle&#x3D;zozo%40zeplin.io&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrganizationMembers: async (organizationId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getOrganizationMembers: async (organizationId: string, limit?: number, offset?: number, handle?: Set<string>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'organizationId' is not null or undefined
             assertParamExists('getOrganizationMembers', 'organizationId', organizationId)
             const localVarPath = `/v1/organizations/{organization_id}/members`
@@ -369,6 +370,10 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
 
             if (offset !== undefined) {
                 localVarQueryParameter['offset'] = offset;
+            }
+
+            if (handle) {
+                localVarQueryParameter['handle'] = Array.from(handle);
             }
 
     
@@ -531,7 +536,7 @@ export const OrganizationsApiAxiosParamCreator = function (configuration?: Confi
         /**
          * List all organizations that user is a member of
          * @summary Get organizations
-         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -786,11 +791,12 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
          * @param {string} organizationId Organization id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
+         * @param {Set<string>} [handle] Filter organization members by email, username or unique identifier of the user  ☝️Note that only organization admins (or higher) can filter members using email addresses.  Example: &#x60;?handle&#x3D;zozo&amp;handle&#x3D;5d9caaecb4a3fa9bc9718686&amp;handle&#x3D;zozo%40zeplin.io&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOrganizationMembers(organizationId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationMembers(organizationId, limit, offset, options);
+        async getOrganizationMembers(organizationId: string, limit?: number, offset?: number, handle?: Set<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOrganizationMembers(organizationId, limit, offset, handle, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -833,7 +839,7 @@ export const OrganizationsApiFp = function(configuration?: Configuration) {
         /**
          * List all organizations that user is a member of
          * @summary Get organizations
-         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+         * @param {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>} [role] Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -946,6 +952,13 @@ export interface OrganizationsApiGetOrganizationMembersSearchParams {
      * @memberof OrganizationsApiGetOrganizationMembersSearchParams
      */
     readonly offset?: number;
+
+    /**
+     * Filter organization members by email, username or unique identifier of the user  ☝️Note that only organization admins (or higher) can filter members using email addresses.  Example: &#x60;?handle&#x3D;zozo&amp;handle&#x3D;5d9caaecb4a3fa9bc9718686&amp;handle&#x3D;zozo%40zeplin.io&#x60; 
+     * @type {Set<string>}
+     * @memberof OrganizationsApiGetOrganizationMembersSearchParams
+     */
+    readonly handle?: Set<string>;
 }
 
 /**
@@ -998,7 +1011,7 @@ export interface OrganizationsApiGetOrganizationStyleguidesSearchParams {
  */
 export interface OrganizationsApiGetOrganizationsSearchParams {
     /**
-     * Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
+     * Filter by role  ☝️Note that the Developer role maps to &#x60;member&#x60; and the Reviewer role maps to &#x60;alien&#x60; in the API.  Example: &#x60;?role&#x3D;owner&amp;role&#x3D;admin&#x60; 
      * @type {Set<'owner' | 'admin' | 'editor' | 'member' | 'alien'>}
      * @memberof OrganizationsApiGetOrganizationsSearchParams
      */
@@ -1121,7 +1134,7 @@ export class OrganizationsApi extends BaseAPI {
      */
     public async getOrganizationMembers(organizationId: string, searchParams: OrganizationsApiGetOrganizationMembersSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<OrganizationMember>>> {
         const organizationsApiFp = OrganizationsApiFp(this.configuration);
-        const request = await organizationsApiFp.getOrganizationMembers(organizationId, searchParams.limit, searchParams.offset, options);
+        const request = await organizationsApiFp.getOrganizationMembers(organizationId, searchParams.limit, searchParams.offset, searchParams.handle, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,

@@ -98,7 +98,7 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {boolean} [isRead] Whether the notification is read or not
-         * @param {Set<NotificationTypeEnum>} [type] Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+         * @param {Set<NotificationTypeEnum>} [type] Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -202,8 +202,8 @@ export const NotificationsApiAxiosParamCreator = function (configuration?: Confi
          * Updates all user notifications unless `type` or `id` parameter is given.  If `type` parameter is provided, updates notifications with matching type.  Similarly, updates notifications with matching identifiers if `id` parameter is provided.  ☝️ `type` and `id` should not be used in conjunction. 
          * @summary Bulk update user notifications
          * @param {NotificationUpdateBody} notificationUpdateBody 
-         * @param {Set<NotificationTypeEnum>} [type] Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
-         * @param {Array<string>} [id] Filter by id  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
+         * @param {Set<NotificationTypeEnum>} [type] Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+         * @param {Array<string>} [id] Filter by id  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -279,7 +279,7 @@ export const NotificationsApiFp = function(configuration?: Configuration) {
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {boolean} [isRead] Whether the notification is read or not
-         * @param {Set<NotificationTypeEnum>} [type] Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+         * @param {Set<NotificationTypeEnum>} [type] Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -303,8 +303,8 @@ export const NotificationsApiFp = function(configuration?: Configuration) {
          * Updates all user notifications unless `type` or `id` parameter is given.  If `type` parameter is provided, updates notifications with matching type.  Similarly, updates notifications with matching identifiers if `id` parameter is provided.  ☝️ `type` and `id` should not be used in conjunction. 
          * @summary Bulk update user notifications
          * @param {NotificationUpdateBody} notificationUpdateBody 
-         * @param {Set<NotificationTypeEnum>} [type] Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
-         * @param {Array<string>} [id] Filter by id  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
+         * @param {Set<NotificationTypeEnum>} [type] Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+         * @param {Array<string>} [id] Filter by id  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -345,7 +345,7 @@ export interface NotificationsApiGetUserNotificationsSearchParams {
     readonly isRead?: boolean;
 
     /**
-     * Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+     * Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
      * @type {Set<NotificationTypeEnum>}
      * @memberof NotificationsApiGetUserNotificationsSearchParams
      */
@@ -360,14 +360,14 @@ export interface NotificationsApiGetUserNotificationsSearchParams {
  */
 export interface NotificationsApiUpdateUserNotificationsSearchParams {
     /**
-     * Filter by type  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
+     * Filter by type  Example: &#x60;?type&#x3D;project.extension&amp;type&#x3D;styleguide.extension&#x60; 
      * @type {Set<NotificationTypeEnum>}
      * @memberof NotificationsApiUpdateUserNotificationsSearchParams
      */
     readonly type?: Set<NotificationTypeEnum>;
 
     /**
-     * Filter by id  **Note:** Please prefer multiple parameter instances over comma-separated values.  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
+     * Filter by id  Example: &#x60;?id&#x3D;5fbe387f8c72ef23659fb500&amp;id&#x3D;602281f4783f72fccc045484&#x60; 
      * @type {Array<string>}
      * @memberof NotificationsApiUpdateUserNotificationsSearchParams
      */
