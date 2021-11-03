@@ -27,6 +27,7 @@ import {
 export const transformGridToJSON = function (value: Grid): any {
     return {
         horizontal_offset: value.horizontalOffset,
+        vertical_offset: value.verticalOffset,
         vertical: value.vertical && transformVerticalGridToJSON(value.vertical),
         horizontal: value.horizontal && transformHorizontalGridToJSON(value.horizontal)
     }
@@ -35,6 +36,7 @@ export const transformGridToJSON = function (value: Grid): any {
 export const transformJSONToGrid = function (value: any): Grid {
     return {
         horizontalOffset: value.horizontal_offset,
+        verticalOffset: value.vertical_offset,
         vertical: value.vertical && transformJSONToVerticalGrid(value.vertical),
         horizontal: value.horizontal && transformJSONToHorizontalGrid(value.horizontal)
     }
@@ -52,6 +54,12 @@ export interface Grid {
      * @memberof Grid
      */
     horizontalOffset?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Grid
+     */
+    verticalOffset?: number;
     /**
      * 
      * @type {VerticalGrid}

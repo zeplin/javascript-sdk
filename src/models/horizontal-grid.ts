@@ -17,14 +17,16 @@
 export const transformHorizontalGridToJSON = function (value: HorizontalGrid): any {
     return {
         gutter_height: value.gutterHeight,
-        row_height: value.rowHeight
+        row_height: value.rowHeight,
+        number_of_rows: value.numberOfRows
     }
 }
 
 export const transformJSONToHorizontalGrid = function (value: any): HorizontalGrid {
     return {
         gutterHeight: value.gutter_height,
-        rowHeight: value.row_height
+        rowHeight: value.row_height,
+        numberOfRows: value.number_of_rows
     }
 }
 
@@ -46,6 +48,12 @@ export interface HorizontalGrid {
      * @memberof HorizontalGrid
      */
     rowHeight: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof HorizontalGrid
+     */
+    numberOfRows?: number;
 }
 
 
