@@ -56,6 +56,7 @@ export const transformProjectToJSON = function (value: Project): any {
         number_of_members: value.numberOfMembers,
         number_of_screens: value.numberOfScreens,
         number_of_components: value.numberOfComponents,
+        number_of_connected_components: value.numberOfConnectedComponents,
         number_of_text_styles: value.numberOfTextStyles,
         number_of_colors: value.numberOfColors,
         number_of_spacing_tokens: value.numberOfSpacingTokens,
@@ -80,6 +81,7 @@ export const transformJSONToProject = function (value: any): Project {
         numberOfMembers: value.number_of_members,
         numberOfScreens: value.number_of_screens,
         numberOfComponents: value.number_of_components,
+        numberOfConnectedComponents: value.number_of_connected_components,
         numberOfTextStyles: value.number_of_text_styles,
         numberOfColors: value.number_of_colors,
         numberOfSpacingTokens: value.number_of_spacing_tokens,
@@ -183,6 +185,12 @@ export interface Project {
      * @memberof Project
      */
     numberOfComponents: number;
+    /**
+     * The number of connected components in the project
+     * @type {number}
+     * @memberof Project
+     */
+    numberOfConnectedComponents: number;
     /**
      * The number of text styles added to the project
      * @type {number}

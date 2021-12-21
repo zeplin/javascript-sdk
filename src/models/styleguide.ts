@@ -47,6 +47,7 @@ export const transformStyleguideToJSON = function (value: Styleguide): any {
         created: value.created,
         updated: value.updated,
         number_of_members: value.numberOfMembers,
+        number_of_connected_components: value.numberOfConnectedComponents,
         number_of_components: value.numberOfComponents,
         number_of_text_styles: value.numberOfTextStyles,
         number_of_colors: value.numberOfColors,
@@ -68,6 +69,7 @@ export const transformJSONToStyleguide = function (value: any): Styleguide {
         created: value.created,
         updated: value.updated,
         numberOfMembers: value.number_of_members,
+        numberOfConnectedComponents: value.number_of_connected_components,
         numberOfComponents: value.number_of_components,
         numberOfTextStyles: value.number_of_text_styles,
         numberOfColors: value.number_of_colors,
@@ -148,6 +150,12 @@ export interface Styleguide {
      * @memberof Styleguide
      */
     numberOfMembers: number;
+    /**
+     * The number of connected components in the styleguide
+     * @type {number}
+     * @memberof Styleguide
+     */
+    numberOfConnectedComponents: number;
     /**
      * The number of components exported to the styleguide
      * @type {number}

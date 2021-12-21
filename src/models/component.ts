@@ -28,6 +28,11 @@ import {
     transformJSONToComponentVersion
 } from './component-version';
 import {
+    ResourceSource,
+    transformResourceSourceToJSON,
+    transformJSONToResourceSource
+} from './resource-source';
+import {
     SnapshotImage,
     transformSnapshotImageToJSON,
     transformJSONToSnapshotImage
@@ -44,6 +49,7 @@ export const transformComponentToJSON = function (value: Component): any {
         updated: value.updated,
         section: value.section && transformComponentSectionReferenceToJSON(value.section),
         variant_properties: value.variantProperties && value.variantProperties.map(transformComponentVariantPropertyToJSON),
+        source: value.source && transformResourceSourceToJSON(value.source),
         latest_version: value.latestVersion && transformComponentVersionToJSON(value.latestVersion)
     }
 }
@@ -58,6 +64,7 @@ export const transformJSONToComponent = function (value: any): Component {
         updated: value.updated,
         section: value.section && transformJSONToComponentSectionReference(value.section),
         variantProperties: value.variant_properties && value.variant_properties.map(transformJSONToComponentVariantProperty),
+        source: value.source && transformJSONToResourceSource(value.source),
         latestVersion: value.latest_version && transformJSONToComponentVersion(value.latest_version)
     }
 }
@@ -116,6 +123,12 @@ export interface Component {
      * @memberof Component
      */
     variantProperties?: Array<ComponentVariantProperty>;
+    /**
+     * 
+     * @type {ResourceSource}
+     * @memberof Component
+     */
+    source?: ResourceSource;
     /**
      * 
      * @type {ComponentVersion}
