@@ -12,19 +12,24 @@
  */
 
 
+import {
+    LanguageEnum,
+    transformLanguageEnumToJSON,
+    transformJSONToLanguageEnum
+} from './language-enum';
 
 
 export const transformCodeToJSON = function (value: Code): any {
     return {
         snippet: value.snippet,
-        language: value.language
+        language: value.language && transformLanguageEnumToJSON(value.language)
     }
 }
 
 export const transformJSONToCode = function (value: any): Code {
     return {
         snippet: value.snippet,
-        language: value.language
+        language: value.language && transformJSONToLanguageEnum(value.language)
     }
 }
 
@@ -41,11 +46,11 @@ export interface Code {
      */
     snippet: string;
     /**
-     * Language of the code snippet
-     * @type {string}
+     * 
+     * @type {LanguageEnum}
      * @memberof Code
      */
-    language?: string;
+    language?: LanguageEnum;
 }
 
 
