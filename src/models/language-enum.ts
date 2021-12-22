@@ -33,7 +33,6 @@ export enum LanguageEnum {
     XML = 'xml',
     SVG = 'svg',
     CSS = 'css',
-    CSS = 'css',
     CLIKE = 'clike',
     JAVASCRIPT = 'javascript',
     ACTIONSCRIPT = 'actionscript',
