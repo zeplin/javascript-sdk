@@ -36,7 +36,7 @@ import {
 
 export const transformConnectedComponentToJSON = function (value: ConnectedComponent): any {
     return {
-        compontents: value.compontents && value.compontents.map(transformEntityReferenceToJSON),
+        components: value.components.map(transformEntityReferenceToJSON),
         file_path: value.filePath,
         name: value.name,
         description: value.description,
@@ -48,7 +48,7 @@ export const transformConnectedComponentToJSON = function (value: ConnectedCompo
 
 export const transformJSONToConnectedComponent = function (value: any): ConnectedComponent {
     return {
-        compontents: value.compontents && value.compontents.map(transformJSONToEntityReference),
+        components: value.components.map(transformJSONToEntityReference),
         filePath: value.file_path,
         name: value.name,
         description: value.description,
@@ -69,7 +69,7 @@ export interface ConnectedComponent {
      * @type {Array<EntityReference>}
      * @memberof ConnectedComponent
      */
-    compontents?: Array<EntityReference>;
+    components: Array<EntityReference>;
     /**
      * File path of the connected component from the source code
      * @type {string}
