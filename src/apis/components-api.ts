@@ -62,10 +62,11 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * @param {string} projectId Project id
          * @param {string} componentId Component id
          * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectComponent: async (projectId: string, componentId: string, includeLatestVersion?: boolean, options: any = {}): Promise<RequestArgs> => {
+        getProjectComponent: async (projectId: string, componentId: string, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectComponent', 'projectId', projectId)
             // verify required parameter 'componentId' is not null or undefined
@@ -96,6 +97,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['include_latest_version'] = includeLatestVersion;
             }
 
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
+
     
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -112,10 +117,11 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * @summary Get latest project component version
          * @param {string} projectId Project id
          * @param {string} componentId Component id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectComponentLatestVersion: async (projectId: string, componentId: string, options: any = {}): Promise<RequestArgs> => {
+        getProjectComponentLatestVersion: async (projectId: string, componentId: string, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectComponentLatestVersion', 'projectId', projectId)
             // verify required parameter 'componentId' is not null or undefined
@@ -141,6 +147,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // authentication PersonalAccessToken required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
 
     
     
@@ -285,10 +295,11 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
          * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideComponent: async (styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLatestVersion?: boolean, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideComponent: async (styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideComponent', 'styleguideId', styleguideId)
             // verify required parameter 'componentId' is not null or undefined
@@ -327,6 +338,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
                 localVarQueryParameter['include_latest_version'] = includeLatestVersion;
             }
 
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
+            }
+
     
     
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
@@ -345,10 +360,11 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * @param {string} componentId Component id
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideComponentLatestVersion: async (styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideComponentLatestVersion: async (styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideComponentLatestVersion', 'styleguideId', styleguideId)
             // verify required parameter 'componentId' is not null or undefined
@@ -381,6 +397,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
 
             if (linkedStyleguide !== undefined) {
                 localVarQueryParameter['linked_styleguide'] = linkedStyleguide;
+            }
+
+            if (includeLinkedStyleguides !== undefined) {
+                localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
 
     
@@ -658,11 +678,12 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * @param {string} projectId Project id
          * @param {string} componentId Component id
          * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectComponent(projectId: string, componentId: string, includeLatestVersion?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponent(projectId, componentId, includeLatestVersion, options);
+        async getProjectComponent(projectId: string, componentId: string, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponent(projectId, componentId, includeLatestVersion, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -670,11 +691,12 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * @summary Get latest project component version
          * @param {string} projectId Project id
          * @param {string} componentId Component id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectComponentLatestVersion(projectId: string, componentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponentLatestVersion(projectId, componentId, options);
+        async getProjectComponentLatestVersion(projectId: string, componentId: string, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponentLatestVersion(projectId, componentId, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -715,11 +737,12 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
          * @param {boolean} [includeLatestVersion] Whether to include the latest version data in the Component object
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideComponent(styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLatestVersion?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponent(styleguideId, componentId, linkedProject, linkedStyleguide, includeLatestVersion, options);
+        async getStyleguideComponent(styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponent(styleguideId, componentId, linkedProject, linkedStyleguide, includeLatestVersion, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -729,11 +752,12 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * @param {string} componentId Component id
          * @param {string} [linkedProject] Reference project id
          * @param {string} [linkedStyleguide] Reference styleguide id
+         * @param {boolean} [includeLinkedStyleguides] Whether to include linked styleguides or not
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideComponentLatestVersion(styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponentLatestVersion(styleguideId, componentId, linkedProject, linkedStyleguide, options);
+        async getStyleguideComponentLatestVersion(styleguideId: string, componentId: string, linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponentLatestVersion(styleguideId, componentId, linkedProject, linkedStyleguide, includeLinkedStyleguides, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -812,8 +836,28 @@ export interface ComponentsApiGetProjectComponentSearchParams {
      * @memberof ComponentsApiGetProjectComponentSearchParams
      */
     readonly includeLatestVersion?: boolean;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ComponentsApiGetProjectComponentSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
+/**
+ * Search parameters for getProjectComponentLatestVersion operation in ComponentsApi.
+ * @export
+ * @interface ComponentsApiGetProjectComponentLatestVersionSearchParams
+ */
+export interface ComponentsApiGetProjectComponentLatestVersionSearchParams {
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ComponentsApiGetProjectComponentLatestVersionSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
+}
 
 /**
  * Search parameters for getProjectComponentSections operation in ComponentsApi.
@@ -911,6 +955,13 @@ export interface ComponentsApiGetStyleguideComponentSearchParams {
      * @memberof ComponentsApiGetStyleguideComponentSearchParams
      */
     readonly includeLatestVersion?: boolean;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ComponentsApiGetStyleguideComponentSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 /**
@@ -932,6 +983,13 @@ export interface ComponentsApiGetStyleguideComponentLatestVersionSearchParams {
      * @memberof ComponentsApiGetStyleguideComponentLatestVersionSearchParams
      */
     readonly linkedStyleguide?: string;
+
+    /**
+     * Whether to include linked styleguides or not
+     * @type {boolean}
+     * @memberof ComponentsApiGetStyleguideComponentLatestVersionSearchParams
+     */
+    readonly includeLinkedStyleguides?: boolean;
 }
 
 /**
@@ -1054,7 +1112,7 @@ export class ComponentsApi extends BaseAPI {
      */
     public async getProjectComponent(projectId: string, componentId: string, searchParams: ComponentsApiGetProjectComponentSearchParams = {}, options?: any) : Promise<AxiosResponse<Component>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getProjectComponent(projectId, componentId, searchParams.includeLatestVersion, options);
+        const request = await componentsApiFp.getProjectComponent(projectId, componentId, searchParams.includeLatestVersion, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1067,13 +1125,14 @@ export class ComponentsApi extends BaseAPI {
      * @summary Get latest project component version
      * @param {string} projectId Project id
      * @param {string} componentId Component id
+     * @param {ComponentsApiGetProjectComponentLatestVersionSearchParams} [searchParams] Search parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ComponentsApi
      */
-    public async getProjectComponentLatestVersion(projectId: string, componentId: string, options?: any) : Promise<AxiosResponse<ComponentVersion>> {
+    public async getProjectComponentLatestVersion(projectId: string, componentId: string, searchParams: ComponentsApiGetProjectComponentLatestVersionSearchParams = {}, options?: any) : Promise<AxiosResponse<ComponentVersion>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getProjectComponentLatestVersion(projectId, componentId, options);
+        const request = await componentsApiFp.getProjectComponentLatestVersion(projectId, componentId, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1131,7 +1190,7 @@ export class ComponentsApi extends BaseAPI {
      */
     public async getStyleguideComponent(styleguideId: string, componentId: string, searchParams: ComponentsApiGetStyleguideComponentSearchParams = {}, options?: any) : Promise<AxiosResponse<Component>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getStyleguideComponent(styleguideId, componentId, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLatestVersion, options);
+        const request = await componentsApiFp.getStyleguideComponent(styleguideId, componentId, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLatestVersion, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1151,7 +1210,7 @@ export class ComponentsApi extends BaseAPI {
      */
     public async getStyleguideComponentLatestVersion(styleguideId: string, componentId: string, searchParams: ComponentsApiGetStyleguideComponentLatestVersionSearchParams = {}, options?: any) : Promise<AxiosResponse<ComponentVersion>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getStyleguideComponentLatestVersion(styleguideId, componentId, searchParams.linkedProject, searchParams.linkedStyleguide, options);
+        const request = await componentsApiFp.getStyleguideComponentLatestVersion(styleguideId, componentId, searchParams.linkedProject, searchParams.linkedStyleguide, searchParams.includeLinkedStyleguides, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
