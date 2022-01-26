@@ -28,6 +28,11 @@ import {
     transformJSONToProjectComponentEvent
 } from './project-component-event';
 import {
+    ProjectFlowBoardEvent,
+    transformProjectFlowBoardEventToJSON,
+    transformJSONToProjectFlowBoardEvent
+} from './project-flow-board-event';
+import {
     ProjectMemberEvent,
     transformProjectMemberEventToJSON,
     transformJSONToProjectMemberEvent
@@ -127,6 +132,8 @@ export const transformJSONToWebhookEvent = function (value: any): WebhookEvent {
             return transformJSONToProjectColorEvent(value);
         case 'project.component':
             return transformJSONToProjectComponentEvent(value);
+        case 'project.flow_board':
+            return transformJSONToProjectFlowBoardEvent(value);
         case 'project.member':
             return transformJSONToProjectMemberEvent(value);
         case 'project.note':
@@ -174,6 +181,8 @@ export const transformWebhookEventToJSON = function (value: WebhookEvent): any {
             return transformProjectColorEventToJSON(value);
         case 'project.component':
             return transformProjectComponentEventToJSON(value);
+        case 'project.flow_board':
+            return transformProjectFlowBoardEventToJSON(value);
         case 'project.member':
             return transformProjectMemberEventToJSON(value);
         case 'project.note':
@@ -215,6 +224,6 @@ export const transformWebhookEventToJSON = function (value: WebhookEvent): any {
  * @type WebhookEvent
  * @export
  */
-export type WebhookEvent = PingEvent | ProjectColorEvent | ProjectComponentEvent | ProjectMemberEvent | ProjectNoteCommentEvent | ProjectNoteEvent | ProjectScreenEvent | ProjectScreenVersionEvent | ProjectSpacingTokenEvent | ProjectTextStyleEvent | StyleguideColorEvent | StyleguideComponentEvent | StyleguideMemberEvent | StyleguideSpacingTokenEvent | StyleguideTextStyleEvent | WorkspaceNotificationEvent | WorkspaceOrganizationEvent | WorkspaceOrganizationMemberEvent | WorkspaceProjectEvent | WorkspaceStyleguideEvent;
+export type WebhookEvent = PingEvent | ProjectColorEvent | ProjectComponentEvent | ProjectFlowBoardEvent | ProjectMemberEvent | ProjectNoteCommentEvent | ProjectNoteEvent | ProjectScreenEvent | ProjectScreenVersionEvent | ProjectSpacingTokenEvent | ProjectTextStyleEvent | StyleguideColorEvent | StyleguideComponentEvent | StyleguideMemberEvent | StyleguideSpacingTokenEvent | StyleguideTextStyleEvent | WorkspaceNotificationEvent | WorkspaceOrganizationEvent | WorkspaceOrganizationMemberEvent | WorkspaceProjectEvent | WorkspaceStyleguideEvent;
 
 

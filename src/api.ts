@@ -23,6 +23,7 @@ import { ColorsApi } from './apis/colors-api';
 import { ComponentsApi } from './apis/components-api';
 import { ConnectedComponentsApi } from './apis/connected-components-api';
 import { DesignTokensApi } from './apis/design-tokens-api';
+import { FlowsApi } from './apis/flows-api';
 import { NotificationsApi } from './apis/notifications-api';
 import { OrganizationsApi } from './apis/organizations-api';
 import { ProjectsApi } from './apis/projects-api';
@@ -43,6 +44,7 @@ export class ZeplinApi extends BaseAPI {
     components: ComponentsApi;
     connectedComponents: ConnectedComponentsApi;
     designTokens: DesignTokensApi;
+    flows: FlowsApi;
     notifications: NotificationsApi;
     organizations: OrganizationsApi;
     projects: ProjectsApi;
@@ -63,6 +65,7 @@ export class ZeplinApi extends BaseAPI {
         this.components = new ComponentsApi(configuration, basePath, axios);
         this.connectedComponents = new ConnectedComponentsApi(configuration, basePath, axios);
         this.designTokens = new DesignTokensApi(configuration, basePath, axios);
+        this.flows = new FlowsApi(configuration, basePath, axios);
         this.notifications = new NotificationsApi(configuration, basePath, axios);
         this.organizations = new OrganizationsApi(configuration, basePath, axios);
         this.projects = new ProjectsApi(configuration, basePath, axios);

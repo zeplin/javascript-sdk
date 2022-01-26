@@ -63,6 +63,8 @@ import {
     ProjectColorCreatedEvent,
     ProjectColorDeletedEvent,
     ProjectColorUpdatedEvent,
+    ProjectFlowBoardEvent,
+    ProjectFlowBoardBuiltEvent,
     ProjectTextStyleEvent,
     ProjectTextStyleCreatedEvent,
     ProjectTextStyleDeletedEvent,
@@ -333,6 +335,14 @@ export class Webhooks {
 
     static isProjectColorUpdatedEvent(data: WebhookEvent): data is ProjectColorUpdatedEvent {
         return Webhooks.isProjectColorEvent(data) && data.action === "updated";
+    }
+
+    static isProjectFlowBoardEvent(data: WebhookEvent): data is ProjectFlowBoardEvent {
+        return data.event === "project.flow_board";
+    }
+
+    static isProjectFlowBoardBuiltEvent(data: WebhookEvent): data is ProjectFlowBoardBuiltEvent {
+        return Webhooks.isProjectFlowBoardEvent(data) && data.action === "built";
     }
 
     static isProjectTextStyleEvent(data: WebhookEvent): data is ProjectTextStyleEvent {

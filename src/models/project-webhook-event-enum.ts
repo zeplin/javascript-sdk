@@ -37,7 +37,8 @@ export enum ProjectWebhookEventEnum {
     SCREEN = 'project.screen',
     SCREEN_VERSION = 'project.screen.version',
     SPACING_TOKEN = 'project.spacing_token',
-    TEXT_STYLE = 'project.text_style'
+    TEXT_STYLE = 'project.text_style',
+    FLOW_BOARD = 'project.flow_board'
 }
 
 

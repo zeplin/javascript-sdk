@@ -52,7 +52,8 @@ export enum NotificationTypeEnum {
     PROJECT_SLACK_INTEGRATION = 'project.slack_integration',
     STYLEGUIDE_SLACK_INTEGRATION = 'styleguide.slack_integration',
     PROJECT_MEMBER = 'project.member',
-    STYLEGUIDE_MEMBER = 'styleguide.member'
+    STYLEGUIDE_MEMBER = 'styleguide.member',
+    PROJECT_FLOW_BOARD = 'project.flow_board'
 }
 
 
