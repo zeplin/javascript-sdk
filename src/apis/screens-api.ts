@@ -381,6 +381,110 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Delete a comment on the screen note
+         * @summary Delete comment
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} noteId Screen note id
+         * @param {string} commentId Screen comment id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteScreenComment: async (projectId: string, screenId: string, noteId: string, commentId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('deleteScreenComment', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('deleteScreenComment', 'screenId', screenId)
+            // verify required parameter 'noteId' is not null or undefined
+            assertParamExists('deleteScreenComment', 'noteId', noteId)
+            // verify required parameter 'commentId' is not null or undefined
+            assertParamExists('deleteScreenComment', 'commentId', commentId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/notes/{note_id}/comments/{comment_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)))
+                .replace(`{${"note_id"}}`, encodeURIComponent(String(noteId)))
+                .replace(`{${"comment_id"}}`, encodeURIComponent(String(commentId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete a note on the screen
+         * @summary Delete a note
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} noteId Screen note id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteScreenNote: async (projectId: string, screenId: string, noteId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('deleteScreenNote', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('deleteScreenNote', 'screenId', screenId)
+            // verify required parameter 'noteId' is not null or undefined
+            assertParamExists('deleteScreenNote', 'noteId', noteId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/notes/{note_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)))
+                .replace(`{${"note_id"}}`, encodeURIComponent(String(noteId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get details of the latest version
          * @summary Get the latest screen version
          * @param {string} projectId Project id
@@ -1247,6 +1351,33 @@ export const ScreensApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Delete a comment on the screen note
+         * @summary Delete comment
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} noteId Screen note id
+         * @param {string} commentId Screen comment id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteScreenComment(projectId: string, screenId: string, noteId: string, commentId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteScreenComment(projectId, screenId, noteId, commentId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Delete a note on the screen
+         * @summary Delete a note
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} noteId Screen note id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteScreenNote(projectId: string, screenId: string, noteId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteScreenNote(projectId, screenId, noteId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get details of the latest version
          * @summary Get the latest screen version
          * @param {string} projectId Project id
@@ -1544,6 +1675,8 @@ export interface ScreensApiCreateScreenVersionBody {
 }
 
 
+
+
 /**
  * Search parameters for getProjectScreens operation in ScreensApi.
  * @export
@@ -1800,6 +1933,41 @@ export class ScreensApi extends BaseAPI {
             ...response,
             data: transformJSONToEntityReference(response.data)
         };
+    }
+
+    /**
+     * Delete a comment on the screen note
+     * @summary Delete comment
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {string} noteId Screen note id
+     * @param {string} commentId Screen comment id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async deleteScreenComment(projectId: string, screenId: string, noteId: string, commentId: string, options?: any) : Promise<AxiosResponse<void>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.deleteScreenComment(projectId, screenId, noteId, commentId, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
+    }
+
+    /**
+     * Delete a note on the screen
+     * @summary Delete a note
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {string} noteId Screen note id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async deleteScreenNote(projectId: string, screenId: string, noteId: string, options?: any) : Promise<AxiosResponse<void>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.deleteScreenNote(projectId, screenId, noteId, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
     }
 
     /**
