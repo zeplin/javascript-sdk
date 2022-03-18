@@ -59,7 +59,7 @@ export interface FlowBoardScreenNode {
      * @type {string}
      * @memberof FlowBoardScreenNode
      */
-    type: 'Screen';
+    type: 'ScreenNode';
     /**
      * 
      * @type {FlowBoardPosition}

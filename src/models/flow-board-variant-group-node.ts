@@ -61,7 +61,7 @@ export interface FlowBoardVariantGroupNode {
      * @type {string}
      * @memberof FlowBoardVariantGroupNode
      */
-    type: 'VariantGroup';
+    type: 'VariantGroupNode';
     /**
      * 
      * @type {FlowBoardPosition}

@@ -56,7 +56,7 @@ export interface FlowBoardTextNode {
      * @type {string}
      * @memberof FlowBoardTextNode
      */
-    type: 'Text';
+    type: 'TextLabelNode';
     /**
      * 
      * @type {FlowBoardPosition}

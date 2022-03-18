@@ -18,6 +18,11 @@ import {
     transformJSONToEntityReference
 } from './entity-reference';
 import {
+    FlowBoardNodeColor,
+    transformFlowBoardNodeColorToJSON,
+    transformJSONToFlowBoardNodeColor
+} from './flow-board-node-color';
+import {
     FlowBoardPosition,
     transformFlowBoardPositionToJSON,
     transformJSONToFlowBoardPosition
@@ -27,6 +32,11 @@ import {
     transformFlowBoardScreenNodeToJSON,
     transformJSONToFlowBoardScreenNode
 } from './flow-board-screen-node';
+import {
+    FlowBoardShapeNode,
+    transformFlowBoardShapeNodeToJSON,
+    transformJSONToFlowBoardShapeNode
+} from './flow-board-shape-node';
 import {
     FlowBoardTextNode,
     transformFlowBoardTextNodeToJSON,
@@ -41,11 +51,13 @@ import {
 
 export const transformJSONToFlowBoardNode = function (value: any): FlowBoardNode {
     switch (value.type) {
-        case 'Screen':
+        case 'ScreenNode':
             return transformJSONToFlowBoardScreenNode(value);
-        case 'Text':
+        case 'ShapeNode':
+            return transformJSONToFlowBoardShapeNode(value);
+        case 'TextLabelNode':
             return transformJSONToFlowBoardTextNode(value);
-        case 'VariantGroup':
+        case 'VariantGroupNode':
             return transformJSONToFlowBoardVariantGroupNode(value);
         default:
             throw new Error(`No variant of FlowBoardNode exists with 'type=${ value.type }'`);
@@ -54,11 +66,13 @@ export const transformJSONToFlowBoardNode = function (value: any): FlowBoardNode
 
 export const transformFlowBoardNodeToJSON = function (value: FlowBoardNode): any {
     switch (value.type) {
-        case 'Screen':
+        case 'ScreenNode':
             return transformFlowBoardScreenNodeToJSON(value);
-        case 'Text':
+        case 'ShapeNode':
+            return transformFlowBoardShapeNodeToJSON(value);
+        case 'TextLabelNode':
             return transformFlowBoardTextNodeToJSON(value);
-        case 'VariantGroup':
+        case 'VariantGroupNode':
             return transformFlowBoardVariantGroupNodeToJSON(value);
     }
 }
@@ -67,6 +81,6 @@ export const transformFlowBoardNodeToJSON = function (value: FlowBoardNode): any
  * @type FlowBoardNode
  * @export
  */
-export type FlowBoardNode = FlowBoardScreenNode | FlowBoardTextNode | FlowBoardVariantGroupNode;
+export type FlowBoardNode = FlowBoardScreenNode | FlowBoardShapeNode | FlowBoardTextNode | FlowBoardVariantGroupNode;
 
 
