@@ -12,6 +12,11 @@
  */
 
 
+import {
+    EntityReference,
+    transformEntityReferenceToJSON,
+    transformJSONToEntityReference
+} from './entity-reference';
 
 
 export const transformScreenSectionToJSON = function (value: ScreenSection): any {
@@ -19,7 +24,8 @@ export const transformScreenSectionToJSON = function (value: ScreenSection): any
         id: value.id,
         created: value.created,
         name: value.name,
-        description: value.description
+        description: value.description,
+        parent: value.parent && transformEntityReferenceToJSON(value.parent)
     }
 }
 
@@ -28,7 +34,8 @@ export const transformJSONToScreenSection = function (value: any): ScreenSection
         id: value.id,
         created: value.created,
         name: value.name,
-        description: value.description
+        description: value.description,
+        parent: value.parent && transformJSONToEntityReference(value.parent)
     }
 }
 
@@ -62,6 +69,12 @@ export interface ScreenSection {
      * @memberof ScreenSection
      */
     description?: string;
+    /**
+     * 
+     * @type {EntityReference}
+     * @memberof ScreenSection
+     */
+    parent?: EntityReference;
 }
 
 
