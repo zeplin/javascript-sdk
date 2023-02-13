@@ -18,7 +18,8 @@ export const transformProjectUpdateBodyToJSON = function (value: ProjectUpdateBo
     return {
         name: value.name,
         description: value.description,
-        workflow_status_id: value.workflowStatusId
+        workflow_status_id: value.workflowStatusId,
+        linked_styleguide_id: value.linkedStyleguideId
     }
 }
 
@@ -26,7 +27,8 @@ export const transformJSONToProjectUpdateBody = function (value: any): ProjectUp
     return {
         name: value.name,
         description: value.description,
-        workflowStatusId: value.workflow_status_id
+        workflowStatusId: value.workflow_status_id,
+        linkedStyleguideId: value.linked_styleguide_id
     }
 }
 
@@ -54,6 +56,12 @@ export interface ProjectUpdateBody {
      * @memberof ProjectUpdateBody
      */
     workflowStatusId?: string;
+    /**
+     * The unique id of the styleguide to be linked. Set null to unlink the linked styleguide.
+     * @type {string}
+     * @memberof ProjectUpdateBody
+     */
+    linkedStyleguideId?: string | null;
 }
 
 

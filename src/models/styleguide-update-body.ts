@@ -17,14 +17,16 @@
 export const transformStyleguideUpdateBodyToJSON = function (value: StyleguideUpdateBody): any {
     return {
         name: value.name,
-        description: value.description
+        description: value.description,
+        linked_parent_styleguide_id: value.linkedParentStyleguideId
     }
 }
 
 export const transformJSONToStyleguideUpdateBody = function (value: any): StyleguideUpdateBody {
     return {
         name: value.name,
-        description: value.description
+        description: value.description,
+        linkedParentStyleguideId: value.linked_parent_styleguide_id
     }
 }
 
@@ -46,6 +48,12 @@ export interface StyleguideUpdateBody {
      * @memberof StyleguideUpdateBody
      */
     description?: string;
+    /**
+     * The unique id of the styleguide to be linked as parent. Set null to unlink the linked parent styleguide.
+     * @type {string}
+     * @memberof StyleguideUpdateBody
+     */
+    linkedParentStyleguideId?: string | null;
 }
 
 
