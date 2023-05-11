@@ -58,6 +58,30 @@ import {
 } from '../models';
 // @ts-ignore
 import {
+    ScreenAnnotation,
+    transformScreenAnnotationToJSON,
+    transformJSONToScreenAnnotation
+} from '../models';
+// @ts-ignore
+import {
+    ScreenAnnotationCreateBody,
+    transformScreenAnnotationCreateBodyToJSON,
+    transformJSONToScreenAnnotationCreateBody
+} from '../models';
+// @ts-ignore
+import {
+    ScreenAnnotationNoteType,
+    transformScreenAnnotationNoteTypeToJSON,
+    transformJSONToScreenAnnotationNoteType
+} from '../models';
+// @ts-ignore
+import {
+    ScreenAnnotationUpdateBody,
+    transformScreenAnnotationUpdateBodyToJSON,
+    transformJSONToScreenAnnotationUpdateBody
+} from '../models';
+// @ts-ignore
+import {
     ScreenNote,
     transformScreenNoteToJSON,
     transformJSONToScreenNote
@@ -195,6 +219,58 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create an annotation on the screen
+         * @summary Create an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {ScreenAnnotationCreateBody} screenAnnotationCreateBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createScreenAnnotation: async (projectId: string, screenId: string, screenAnnotationCreateBody: ScreenAnnotationCreateBody, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('createScreenAnnotation', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('createScreenAnnotation', 'screenId', screenId)
+            // verify required parameter 'screenAnnotationCreateBody' is not null or undefined
+            assertParamExists('createScreenAnnotation', 'screenAnnotationCreateBody', screenAnnotationCreateBody)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/annotations`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transformScreenAnnotationCreateBodyToJSON(screenAnnotationCreateBody), localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -374,6 +450,56 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete an annotation on the screen
+         * @summary Delete an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteScreenAnnotation: async (projectId: string, screenId: string, annotationId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('deleteScreenAnnotation', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('deleteScreenAnnotation', 'screenId', screenId)
+            // verify required parameter 'annotationId' is not null or undefined
+            assertParamExists('deleteScreenAnnotation', 'annotationId', annotationId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/annotations/{annotation_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)))
+                .replace(`{${"annotation_id"}}`, encodeURIComponent(String(annotationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -608,6 +734,154 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}`
                 .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
                 .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a screen annotation by id
+         * @summary Get a single screen annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenAnnotation: async (projectId: string, screenId: string, annotationId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenAnnotation', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('getScreenAnnotation', 'screenId', screenId)
+            // verify required parameter 'annotationId' is not null or undefined
+            assertParamExists('getScreenAnnotation', 'annotationId', annotationId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/annotations/{annotation_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)))
+                .replace(`{${"annotation_id"}}`, encodeURIComponent(String(annotationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all annotations in the screen
+         * @summary Get screen annotations
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenAnnotations: async (projectId: string, screenId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenAnnotations', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('getScreenAnnotations', 'screenId', screenId)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/annotations`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all annotation note types in the project
+         * @summary Get screen annotation note types
+         * @param {string} projectId Project id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreenAnnotationsNoteTypes: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getScreenAnnotationsNoteTypes', 'projectId', projectId)
+            const localVarPath = `/v1/projects/{project_id}/annotations/note_types`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1165,6 +1439,62 @@ export const ScreensApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Update an annotation on the screen
+         * @summary Update an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {ScreenAnnotationUpdateBody} screenAnnotationUpdateBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateScreenAnnotation: async (projectId: string, screenId: string, annotationId: string, screenAnnotationUpdateBody: ScreenAnnotationUpdateBody, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('updateScreenAnnotation', 'projectId', projectId)
+            // verify required parameter 'screenId' is not null or undefined
+            assertParamExists('updateScreenAnnotation', 'screenId', screenId)
+            // verify required parameter 'annotationId' is not null or undefined
+            assertParamExists('updateScreenAnnotation', 'annotationId', annotationId)
+            // verify required parameter 'screenAnnotationUpdateBody' is not null or undefined
+            assertParamExists('updateScreenAnnotation', 'screenAnnotationUpdateBody', screenAnnotationUpdateBody)
+            const localVarPath = `/v1/projects/{project_id}/screens/{screen_id}/annotations/{annotation_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)))
+                .replace(`{${"screen_id"}}`, encodeURIComponent(String(screenId)))
+                .replace(`{${"annotation_id"}}`, encodeURIComponent(String(annotationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transformScreenAnnotationUpdateBodyToJSON(screenAnnotationUpdateBody), localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update comments on the screen note
          * @summary Update comment
          * @param {string} projectId Project id
@@ -1309,6 +1639,19 @@ export const ScreensApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Create an annotation on the screen
+         * @summary Create an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {ScreenAnnotationCreateBody} screenAnnotationCreateBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createScreenAnnotation(projectId: string, screenId: string, screenAnnotationCreateBody: ScreenAnnotationCreateBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createScreenAnnotation(projectId, screenId, screenAnnotationCreateBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Create comment on the screen note
          * @summary Create a comment
          * @param {string} projectId Project id
@@ -1348,6 +1691,19 @@ export const ScreensApiFp = function(configuration?: Configuration) {
          */
         async createScreenVersion(projectId: string, screenId: string, image: any, commitMessage?: string, commitColor?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createScreenVersion(projectId, screenId, image, commitMessage, commitColor, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Delete an annotation on the screen
+         * @summary Delete an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteScreenAnnotation(projectId: string, screenId: string, annotationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteScreenAnnotation(projectId, screenId, annotationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1414,6 +1770,44 @@ export const ScreensApiFp = function(configuration?: Configuration) {
          */
         async getScreen(projectId: string, screenId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getScreen(projectId, screenId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a screen annotation by id
+         * @summary Get a single screen annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenAnnotation(projectId: string, screenId: string, annotationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenAnnotation(projectId, screenId, annotationId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * List all annotations in the screen
+         * @summary Get screen annotations
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenAnnotations(projectId: string, screenId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenAnnotations(projectId, screenId, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * List all annotation note types in the project
+         * @summary Get screen annotation note types
+         * @param {string} projectId Project id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreenAnnotationsNoteTypes(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreenAnnotationsNoteTypes(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1550,6 +1944,20 @@ export const ScreensApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Update an annotation on the screen
+         * @summary Update an annotation
+         * @param {string} projectId Project id
+         * @param {string} screenId Screen id
+         * @param {string} annotationId Screen annotation id
+         * @param {ScreenAnnotationUpdateBody} screenAnnotationUpdateBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateScreenAnnotation(projectId: string, screenId: string, annotationId: string, screenAnnotationUpdateBody: ScreenAnnotationUpdateBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateScreenAnnotation(projectId, screenId, annotationId, screenAnnotationUpdateBody, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Update comments on the screen note
          * @summary Update comment
          * @param {string} projectId Project id
@@ -1643,6 +2051,7 @@ export interface ScreensApiCreateScreenBody {
 
 
 
+
 /**
  * Body for createScreenVersion operation in ScreensApi.
  * @export
@@ -1673,6 +2082,7 @@ export interface ScreensApiCreateScreenVersionBody {
      */
     readonly commitColor?: string;
 }
+
 
 
 
@@ -1708,6 +2118,29 @@ export interface ScreensApiGetProjectScreensSearchParams {
      * Pagination offset
      * @type {number}
      * @memberof ScreensApiGetProjectScreensSearchParams
+     */
+    readonly offset?: number;
+}
+
+
+
+/**
+ * Search parameters for getScreenAnnotations operation in ScreensApi.
+ * @export
+ * @interface ScreensApiGetScreenAnnotationsSearchParams
+ */
+export interface ScreensApiGetScreenAnnotationsSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof ScreensApiGetScreenAnnotationsSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof ScreensApiGetScreenAnnotationsSearchParams
      */
     readonly offset?: number;
 }
@@ -1840,6 +2273,7 @@ export interface ScreensApiGetScreenVersionsSearchParams {
 
 
 
+
 /**
  * ScreensApi - object-oriented interface
  * @export
@@ -1865,6 +2299,26 @@ export class ScreensApi extends BaseAPI {
     public async createScreen(projectId: string, multipartParams: ScreensApiCreateScreenBody, options?: any) : Promise<AxiosResponse<EntityReference>> {
         const screensApiFp = ScreensApiFp(this.configuration);
         const request = await screensApiFp.createScreen(projectId, multipartParams.name, multipartParams.image, multipartParams.description, multipartParams.commitMessage, multipartParams.commitColor, multipartParams.tags, multipartParams.sectionId, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: transformJSONToEntityReference(response.data)
+        };
+    }
+
+    /**
+     * Create an annotation on the screen
+     * @summary Create an annotation
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {ScreenAnnotationCreateBody} screenAnnotationCreateBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async createScreenAnnotation(projectId: string, screenId: string, screenAnnotationCreateBody: ScreenAnnotationCreateBody, options?: any) : Promise<AxiosResponse<EntityReference>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.createScreenAnnotation(projectId, screenId, screenAnnotationCreateBody, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1933,6 +2387,23 @@ export class ScreensApi extends BaseAPI {
             ...response,
             data: transformJSONToEntityReference(response.data)
         };
+    }
+
+    /**
+     * Delete an annotation on the screen
+     * @summary Delete an annotation
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {string} annotationId Screen annotation id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async deleteScreenAnnotation(projectId: string, screenId: string, annotationId: string, options?: any) : Promise<AxiosResponse<void>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.deleteScreenAnnotation(projectId, screenId, annotationId, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
     }
 
     /**
@@ -2024,6 +2495,64 @@ export class ScreensApi extends BaseAPI {
         return {
             ...response,
             data: transformJSONToScreen(response.data)
+        };
+    }
+
+    /**
+     * Get a screen annotation by id
+     * @summary Get a single screen annotation
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {string} annotationId Screen annotation id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenAnnotation(projectId: string, screenId: string, annotationId: string, options?: any) : Promise<AxiosResponse<ScreenAnnotation>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenAnnotation(projectId, screenId, annotationId, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: transformJSONToScreenAnnotation(response.data)
+        };
+    }
+
+    /**
+     * List all annotations in the screen
+     * @summary Get screen annotations
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {ScreensApiGetScreenAnnotationsSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenAnnotations(projectId: string, screenId: string, searchParams: ScreensApiGetScreenAnnotationsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ScreenAnnotation>>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenAnnotations(projectId, screenId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToScreenAnnotation)
+        };
+    }
+
+    /**
+     * List all annotation note types in the project
+     * @summary Get screen annotation note types
+     * @param {string} projectId Project id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async getScreenAnnotationsNoteTypes(projectId: string, options?: any) : Promise<AxiosResponse<Array<ScreenAnnotationNoteType>>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.getScreenAnnotationsNoteTypes(projectId, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToScreenAnnotationNoteType)
         };
     }
 
@@ -2216,6 +2745,24 @@ export class ScreensApi extends BaseAPI {
     public async updateScreen(projectId: string, screenId: string, screenUpdateBody: ScreenUpdateBody, options?: any) : Promise<AxiosResponse<void>> {
         const screensApiFp = ScreensApiFp(this.configuration);
         const request = await screensApiFp.updateScreen(projectId, screenId, screenUpdateBody, options);
+        const response = await request(this.axios, this.basePath);
+        return response;
+    }
+
+    /**
+     * Update an annotation on the screen
+     * @summary Update an annotation
+     * @param {string} projectId Project id
+     * @param {string} screenId Screen id
+     * @param {string} annotationId Screen annotation id
+     * @param {ScreenAnnotationUpdateBody} screenAnnotationUpdateBody
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreensApi
+     */
+    public async updateScreenAnnotation(projectId: string, screenId: string, annotationId: string, screenAnnotationUpdateBody: ScreenAnnotationUpdateBody, options?: any) : Promise<AxiosResponse<void>> {
+        const screensApiFp = ScreensApiFp(this.configuration);
+        const request = await screensApiFp.updateScreenAnnotation(projectId, screenId, annotationId, screenAnnotationUpdateBody, options);
         const response = await request(this.axios, this.basePath);
         return response;
     }
