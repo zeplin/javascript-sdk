@@ -17,6 +17,11 @@ import {
     transformResourceSourceToJSON,
     transformJSONToResourceSource
 } from './resource-source';
+import {
+    VariableInfo,
+    transformVariableInfoToJSON,
+    transformJSONToVariableInfo
+} from './variable-info';
 
 
 export const transformColorToJSON = function (value: Color): any {
@@ -29,7 +34,8 @@ export const transformColorToJSON = function (value: Color): any {
         g: value.g,
         b: value.b,
         a: value.a,
-        source: value.source && transformResourceSourceToJSON(value.source)
+        source: value.source && transformResourceSourceToJSON(value.source),
+        variable_info: value.variableInfo && transformVariableInfoToJSON(value.variableInfo)
     }
 }
 
@@ -43,7 +49,8 @@ export const transformJSONToColor = function (value: any): Color {
         g: value.g,
         b: value.b,
         a: value.a,
-        source: value.source && transformJSONToResourceSource(value.source)
+        source: value.source && transformJSONToResourceSource(value.source),
+        variableInfo: value.variable_info && transformJSONToVariableInfo(value.variable_info)
     }
 }
 
@@ -107,6 +114,12 @@ export interface Color {
      * @memberof Color
      */
     source?: ResourceSource;
+    /**
+     * 
+     * @type {VariableInfo}
+     * @memberof Color
+     */
+    variableInfo?: VariableInfo;
 }
 
 

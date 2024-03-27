@@ -261,6 +261,7 @@ export {
     UserWebhookCreateBody,
     UserWebhookEventEnum,
     UserWebhookUpdateBody,
+    VariableInfo,
     VersionCommit,
     VersionCommitColor,
     VerticalGrid,

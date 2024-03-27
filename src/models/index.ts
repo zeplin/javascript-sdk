@@ -247,6 +247,7 @@ export * from './user-webhook';
 export * from './user-webhook-create-body';
 export * from './user-webhook-event-enum';
 export * from './user-webhook-update-body';
+export * from './variable-info';
 export * from './version-commit';
 export * from './version-commit-color';
 export * from './vertical-grid';
