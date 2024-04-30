@@ -40,6 +40,7 @@ export const transformScreenToJSON = function (value: Screen): any {
         updated: value.updated,
         number_of_versions: value.numberOfVersions,
         number_of_notes: value.numberOfNotes,
+        number_of_annotations: value.numberOfAnnotations,
         section: value.section && transformEntityReferenceToJSON(value.section),
         variant: value.variant && transformScreenVariantToJSON(value.variant)
     }
@@ -56,6 +57,7 @@ export const transformJSONToScreen = function (value: any): Screen {
         updated: value.updated,
         numberOfVersions: value.number_of_versions,
         numberOfNotes: value.number_of_notes,
+        numberOfAnnotations: value.number_of_annotations,
         section: value.section && transformJSONToEntityReference(value.section),
         variant: value.variant && transformJSONToScreenVariant(value.variant)
     }
@@ -121,6 +123,12 @@ export interface Screen {
      * @memberof Screen
      */
     numberOfNotes: number;
+    /**
+     * The number of annotations in the screen
+     * @type {number}
+     * @memberof Screen
+     */
+    numberOfAnnotations: number;
     /**
      * 
      * @type {EntityReference}
