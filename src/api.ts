@@ -32,6 +32,7 @@ import { SpacingApi } from './apis/spacing-api';
 import { StyleguidesApi } from './apis/styleguides-api';
 import { TextStylesApi } from './apis/text-styles-api';
 import { UsersApi } from './apis/users-api';
+import { VariableCollectionsApi } from './apis/variable-collections-api';
 import { WebhooksApi } from './apis/webhooks-api';
 
 import { Webhooks } from './utilities/webhooks';
@@ -53,6 +54,7 @@ export class ZeplinApi extends BaseAPI {
     styleguides: StyleguidesApi;
     textStyles: TextStylesApi;
     users: UsersApi;
+    variableCollections: VariableCollectionsApi;
     webhooks: WebhooksApi;
 
 
@@ -74,6 +76,7 @@ export class ZeplinApi extends BaseAPI {
         this.styleguides = new StyleguidesApi(configuration, basePath, axios);
         this.textStyles = new TextStylesApi(configuration, basePath, axios);
         this.users = new UsersApi(configuration, basePath, axios);
+        this.variableCollections = new VariableCollectionsApi(configuration, basePath, axios);
         this.webhooks = new WebhooksApi(configuration, basePath, axios);
 
     }
