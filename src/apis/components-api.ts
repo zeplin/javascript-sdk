@@ -50,6 +50,12 @@ import {
     transformErrorResponseToJSON,
     transformJSONToErrorResponse
 } from '../models';
+// @ts-ignore
+import {
+    Page,
+    transformPageToJSON,
+    transformJSONToPage
+} from '../models';
 /**
  * ComponentsApi - axios parameter creator
  * @export
@@ -167,12 +173,13 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * List all component sections of the project
          * @summary Get project component sections
          * @param {string} projectId Project id
+         * @param {string} [pageId] Filter by page id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProjectComponentSections: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+        getProjectComponentSections: async (projectId: string, pageId?: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'projectId' is not null or undefined
             assertParamExists('getProjectComponentSections', 'projectId', projectId)
             const localVarPath = `/v1/projects/{project_id}/component_sections`
@@ -195,6 +202,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // authentication PersonalAccessToken required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageId !== undefined) {
+                localVarQueryParameter['page_id'] = pageId;
+            }
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -267,6 +278,58 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             if (includeLinkedStyleguides !== undefined) {
                 localVarQueryParameter['include_linked_styleguides'] = includeLinkedStyleguides;
             }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all pages of the project
+         * @summary Get project pages
+         * @param {string} projectId Project id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProjectPages: async (projectId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getProjectPages', 'projectId', projectId)
+            const localVarPath = `/v1/projects/{project_id}/pages`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -418,6 +481,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * Returns the component sections of a styleguide that user has access.  See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access. 
          * @summary Get styleguide component sections
          * @param {string} styleguideId Styleguide id
+         * @param {string} [pageId] Filter by page id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
@@ -425,7 +489,7 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getStyleguideComponentSections: async (styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
+        getStyleguideComponentSections: async (styleguideId: string, pageId?: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'styleguideId' is not null or undefined
             assertParamExists('getStyleguideComponentSections', 'styleguideId', styleguideId)
             const localVarPath = `/v1/styleguides/{styleguide_id}/component_sections`
@@ -448,6 +512,10 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             // authentication PersonalAccessToken required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (pageId !== undefined) {
+                localVarQueryParameter['page_id'] = pageId;
+            }
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -538,6 +606,58 @@ export const ComponentsApiAxiosParamCreator = function (configuration?: Configur
             if (includeLatestVersion !== undefined) {
                 localVarQueryParameter['include_latest_version'] = includeLatestVersion;
             }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+    
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List all pages of the styleguide
+         * @summary Get styleguide pages
+         * @param {string} styleguideId Styleguide id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getStyleguidePages: async (styleguideId: string, limit?: number, offset?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'styleguideId' is not null or undefined
+            assertParamExists('getStyleguidePages', 'styleguideId', styleguideId)
+            const localVarPath = `/v1/styleguides/{styleguide_id}/pages`
+                .replace(`{${"styleguide_id"}}`, encodeURIComponent(String(styleguideId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication OAuth2 required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "OAuth2", [], configuration)
+
+            // authentication PersonalAccessToken required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -703,13 +823,14 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * List all component sections of the project
          * @summary Get project component sections
          * @param {string} projectId Project id
+         * @param {string} [pageId] Filter by page id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProjectComponentSections(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponentSections(projectId, limit, offset, options);
+        async getProjectComponentSections(projectId: string, pageId?: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponentSections(projectId, pageId, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -727,6 +848,19 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          */
         async getProjectComponents(projectId: string, sectionId?: string, sort?: 'section' | 'created', includeLatestVersion?: boolean, includeLinkedStyleguides?: boolean, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectComponents(projectId, sectionId, sort, includeLatestVersion, includeLinkedStyleguides, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * List all pages of the project
+         * @summary Get project pages
+         * @param {string} projectId Project id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProjectPages(projectId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectPages(projectId, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -764,6 +898,7 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * Returns the component sections of a styleguide that user has access.  See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access. 
          * @summary Get styleguide component sections
          * @param {string} styleguideId Styleguide id
+         * @param {string} [pageId] Filter by page id
          * @param {number} [limit] Pagination limit
          * @param {number} [offset] Pagination offset
          * @param {string} [linkedProject] Reference project id
@@ -771,8 +906,8 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getStyleguideComponentSections(styleguideId: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponentSections(styleguideId, limit, offset, linkedProject, linkedStyleguide, options);
+        async getStyleguideComponentSections(styleguideId: string, pageId?: string, limit?: number, offset?: number, linkedProject?: string, linkedStyleguide?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponentSections(styleguideId, pageId, limit, offset, linkedProject, linkedStyleguide, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -792,6 +927,19 @@ export const ComponentsApiFp = function(configuration?: Configuration) {
          */
         async getStyleguideComponents(styleguideId: string, sectionId?: string, sort?: 'section' | 'created', linkedProject?: string, linkedStyleguide?: string, includeLinkedStyleguides?: boolean, includeLatestVersion?: boolean, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguideComponents(styleguideId, sectionId, sort, linkedProject, linkedStyleguide, includeLinkedStyleguides, includeLatestVersion, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * List all pages of the styleguide
+         * @summary Get styleguide pages
+         * @param {string} styleguideId Styleguide id
+         * @param {number} [limit] Pagination limit
+         * @param {number} [offset] Pagination offset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getStyleguidePages(styleguideId: string, limit?: number, offset?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getStyleguidePages(styleguideId, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -866,6 +1014,13 @@ export interface ComponentsApiGetProjectComponentLatestVersionSearchParams {
  */
 export interface ComponentsApiGetProjectComponentSectionsSearchParams {
     /**
+     * Filter by page id
+     * @type {string}
+     * @memberof ComponentsApiGetProjectComponentSectionsSearchParams
+     */
+    readonly pageId?: string;
+
+    /**
      * Pagination limit
      * @type {number}
      * @memberof ComponentsApiGetProjectComponentSectionsSearchParams
@@ -925,6 +1080,27 @@ export interface ComponentsApiGetProjectComponentsSearchParams {
      * Pagination offset
      * @type {number}
      * @memberof ComponentsApiGetProjectComponentsSearchParams
+     */
+    readonly offset?: number;
+}
+
+/**
+ * Search parameters for getProjectPages operation in ComponentsApi.
+ * @export
+ * @interface ComponentsApiGetProjectPagesSearchParams
+ */
+export interface ComponentsApiGetProjectPagesSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof ComponentsApiGetProjectPagesSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof ComponentsApiGetProjectPagesSearchParams
      */
     readonly offset?: number;
 }
@@ -998,6 +1174,13 @@ export interface ComponentsApiGetStyleguideComponentLatestVersionSearchParams {
  * @interface ComponentsApiGetStyleguideComponentSectionsSearchParams
  */
 export interface ComponentsApiGetStyleguideComponentSectionsSearchParams {
+    /**
+     * Filter by page id
+     * @type {string}
+     * @memberof ComponentsApiGetStyleguideComponentSectionsSearchParams
+     */
+    readonly pageId?: string;
+
     /**
      * Pagination limit
      * @type {number}
@@ -1090,6 +1273,27 @@ export interface ComponentsApiGetStyleguideComponentsSearchParams {
     readonly offset?: number;
 }
 
+/**
+ * Search parameters for getStyleguidePages operation in ComponentsApi.
+ * @export
+ * @interface ComponentsApiGetStyleguidePagesSearchParams
+ */
+export interface ComponentsApiGetStyleguidePagesSearchParams {
+    /**
+     * Pagination limit
+     * @type {number}
+     * @memberof ComponentsApiGetStyleguidePagesSearchParams
+     */
+    readonly limit?: number;
+
+    /**
+     * Pagination offset
+     * @type {number}
+     * @memberof ComponentsApiGetStyleguidePagesSearchParams
+     */
+    readonly offset?: number;
+}
+
 
 
 
@@ -1151,7 +1355,7 @@ export class ComponentsApi extends BaseAPI {
      */
     public async getProjectComponentSections(projectId: string, searchParams: ComponentsApiGetProjectComponentSectionsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ComponentSection>>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getProjectComponentSections(projectId, searchParams.limit, searchParams.offset, options);
+        const request = await componentsApiFp.getProjectComponentSections(projectId, searchParams.pageId, searchParams.limit, searchParams.offset, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1175,6 +1379,25 @@ export class ComponentsApi extends BaseAPI {
         return {
             ...response,
             data: response.data.map(transformJSONToComponent)
+        };
+    }
+
+    /**
+     * List all pages of the project
+     * @summary Get project pages
+     * @param {string} projectId Project id
+     * @param {ComponentsApiGetProjectPagesSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComponentsApi
+     */
+    public async getProjectPages(projectId: string, searchParams: ComponentsApiGetProjectPagesSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Page>>> {
+        const componentsApiFp = ComponentsApiFp(this.configuration);
+        const request = await componentsApiFp.getProjectPages(projectId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToPage)
         };
     }
 
@@ -1229,7 +1452,7 @@ export class ComponentsApi extends BaseAPI {
      */
     public async getStyleguideComponentSections(styleguideId: string, searchParams: ComponentsApiGetStyleguideComponentSectionsSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<ComponentSection>>> {
         const componentsApiFp = ComponentsApiFp(this.configuration);
-        const request = await componentsApiFp.getStyleguideComponentSections(styleguideId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, options);
+        const request = await componentsApiFp.getStyleguideComponentSections(styleguideId, searchParams.pageId, searchParams.limit, searchParams.offset, searchParams.linkedProject, searchParams.linkedStyleguide, options);
         const response = await request(this.axios, this.basePath);
         return {
             ...response,
@@ -1253,6 +1476,25 @@ export class ComponentsApi extends BaseAPI {
         return {
             ...response,
             data: response.data.map(transformJSONToComponent)
+        };
+    }
+
+    /**
+     * List all pages of the styleguide
+     * @summary Get styleguide pages
+     * @param {string} styleguideId Styleguide id
+     * @param {ComponentsApiGetStyleguidePagesSearchParams} [searchParams] Search parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComponentsApi
+     */
+    public async getStyleguidePages(styleguideId: string, searchParams: ComponentsApiGetStyleguidePagesSearchParams = {}, options?: any) : Promise<AxiosResponse<Array<Page>>> {
+        const componentsApiFp = ComponentsApiFp(this.configuration);
+        const request = await componentsApiFp.getStyleguidePages(styleguideId, searchParams.limit, searchParams.offset, options);
+        const response = await request(this.axios, this.basePath);
+        return {
+            ...response,
+            data: response.data.map(transformJSONToPage)
         };
     }
 

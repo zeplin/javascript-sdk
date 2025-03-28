@@ -93,6 +93,7 @@ export {
     OrganizationWebhookCreateBody,
     OrganizationWebhookEventEnum,
     OrganizationWebhookUpdateBody,
+    Page,
     PingEvent,
     Project,
     ProjectColorCreatedEvent,

@@ -79,6 +79,7 @@ export * from './organization-webhook';
 export * from './organization-webhook-create-body';
 export * from './organization-webhook-event-enum';
 export * from './organization-webhook-update-body';
+export * from './page';
 export * from './ping-event';
 export * from './project';
 export * from './project-color-created-event';
