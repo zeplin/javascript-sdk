@@ -27,7 +27,7 @@ zeplinApi.screens.createScreen(projectId, {
 }).then(screenId => {
     console.log(`Created screen with id: ${screenId}`);
 
-    return fetch("https://placekitten.com/400/320")
+    return fetch("https://placehold.co/400x300/png")
         .then(resp => resp.buffer())
         .then(buffer => {
             // Create a new version for the screen we just created.
