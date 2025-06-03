@@ -19,7 +19,7 @@ import {
 } from './variable';
 
 
-export const transformGroupToJSON = function (value: Group): any {
+export const transformVariableGroupToJSON = function (value: VariableGroup): any {
     return {
         id: value.id,
         name: value.name,
@@ -29,7 +29,7 @@ export const transformGroupToJSON = function (value: Group): any {
     }
 }
 
-export const transformJSONToGroup = function (value: any): Group {
+export const transformJSONToVariableGroup = function (value: any): VariableGroup {
     return {
         id: value.id,
         name: value.name,
@@ -42,37 +42,37 @@ export const transformJSONToGroup = function (value: any): Group {
 /**
  * 
  * @export
- * @interface Group
+ * @interface VariableGroup
  */
-export interface Group {
+export interface VariableGroup {
     /**
      * Identifier of the color
      * @type {string}
-     * @memberof Group
+     * @memberof VariableGroup
      */
     id: string;
     /**
      * Name of the color
      * @type {string}
-     * @memberof Group
+     * @memberof VariableGroup
      */
     name: string;
     /**
      * Description of the color
      * @type {string}
-     * @memberof Group
+     * @memberof VariableGroup
      */
     description?: string;
     /**
      * Parent group of the group
      * @type {string}
-     * @memberof Group
+     * @memberof VariableGroup
      */
     parent?: string;
     /**
      * 
      * @type {Array<Variable>}
-     * @memberof Group
+     * @memberof VariableGroup
      */
     variables: Array<Variable>;
 }

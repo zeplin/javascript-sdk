@@ -14,7 +14,7 @@
 
 
 
-export const transformModeToJSON = function (value: Mode): any {
+export const transformVariableModeToJSON = function (value: VariableMode): any {
     return {
         id: value.id,
         name: value.name,
@@ -22,7 +22,7 @@ export const transformModeToJSON = function (value: Mode): any {
     }
 }
 
-export const transformJSONToMode = function (value: any): Mode {
+export const transformJSONToVariableMode = function (value: any): VariableMode {
     return {
         id: value.id,
         name: value.name,
@@ -33,25 +33,25 @@ export const transformJSONToMode = function (value: any): Mode {
 /**
  * 
  * @export
- * @interface Mode
+ * @interface VariableMode
  */
-export interface Mode {
+export interface VariableMode {
     /**
      * Identifier of the mode
      * @type {string}
-     * @memberof Mode
+     * @memberof VariableMode
      */
     id: string;
     /**
      * Name of the mode
      * @type {string}
-     * @memberof Mode
+     * @memberof VariableMode
      */
     name: string;
     /**
      * Mode\'s identifier in the design tool
      * @type {string}
-     * @memberof Mode
+     * @memberof VariableMode
      */
     modeId: string;
 }

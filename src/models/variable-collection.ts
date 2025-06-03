@@ -13,20 +13,20 @@
 
 
 import {
-    Group,
-    transformGroupToJSON,
-    transformJSONToGroup
-} from './group';
-import {
-    Mode,
-    transformModeToJSON,
-    transformJSONToMode
-} from './mode';
-import {
     ResourceSource,
     transformResourceSourceToJSON,
     transformJSONToResourceSource
 } from './resource-source';
+import {
+    VariableGroup,
+    transformVariableGroupToJSON,
+    transformJSONToVariableGroup
+} from './variable-group';
+import {
+    VariableMode,
+    transformVariableModeToJSON,
+    transformJSONToVariableMode
+} from './variable-mode';
 
 
 export const transformVariableCollectionToJSON = function (value: VariableCollection): any {
@@ -35,8 +35,8 @@ export const transformVariableCollectionToJSON = function (value: VariableCollec
         created: value.created,
         name: value.name,
         description: value.description,
-        modes: value.modes.map(transformModeToJSON),
-        groups: value.groups.map(transformGroupToJSON),
+        modes: value.modes.map(transformVariableModeToJSON),
+        groups: value.groups.map(transformVariableGroupToJSON),
         source_id: value.sourceId,
         source: value.source && transformResourceSourceToJSON(value.source)
     }
@@ -48,8 +48,8 @@ export const transformJSONToVariableCollection = function (value: any): Variable
         created: value.created,
         name: value.name,
         description: value.description,
-        modes: value.modes.map(transformJSONToMode),
-        groups: value.groups.map(transformJSONToGroup),
+        modes: value.modes.map(transformJSONToVariableMode),
+        groups: value.groups.map(transformJSONToVariableGroup),
         sourceId: value.source_id,
         source: value.source && transformJSONToResourceSource(value.source)
     }
@@ -87,16 +87,16 @@ export interface VariableCollection {
     description?: string;
     /**
      * 
-     * @type {Array<Mode>}
+     * @type {Array<VariableMode>}
      * @memberof VariableCollection
      */
-    modes: Array<Mode>;
+    modes: Array<VariableMode>;
     /**
      * 
-     * @type {Array<Group>}
+     * @type {Array<VariableGroup>}
      * @memberof VariableCollection
      */
-    groups: Array<Group>;
+    groups: Array<VariableGroup>;
     /**
      * Variable collection\'s identifier in the design tool
      * @type {string}
