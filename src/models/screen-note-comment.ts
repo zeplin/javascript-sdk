@@ -13,6 +13,11 @@
 
 
 import {
+    Reaction,
+    transformReactionToJSON,
+    transformJSONToReaction
+} from './reaction';
+import {
     User,
     transformUserToJSON,
     transformJSONToUser
@@ -24,7 +29,9 @@ export const transformScreenNoteCommentToJSON = function (value: ScreenNoteComme
         id: value.id,
         content: value.content,
         author: transformUserToJSON(value.author),
-        updated: value.updated
+        updated: value.updated,
+        reactions: value.reactions.map(transformReactionToJSON),
+        screen_version_id: value.screenVersionId
     }
 }
 
@@ -33,7 +40,9 @@ export const transformJSONToScreenNoteComment = function (value: any): ScreenNot
         id: value.id,
         content: value.content,
         author: transformJSONToUser(value.author),
-        updated: value.updated
+        updated: value.updated,
+        reactions: value.reactions.map(transformJSONToReaction),
+        screenVersionId: value.screen_version_id
     }
 }
 
@@ -67,6 +76,18 @@ export interface ScreenNoteComment {
      * @memberof ScreenNoteComment
      */
     updated: number;
+    /**
+     * Reactions to the comment
+     * @type {Array<Reaction>}
+     * @memberof ScreenNoteComment
+     */
+    reactions: Array<Reaction>;
+    /**
+     * The version of the screen this comment is associated with
+     * @type {string}
+     * @memberof ScreenNoteComment
+     */
+    screenVersionId?: string;
 }
 
 

@@ -35,6 +35,7 @@ export enum OrganizationWebhookEventEnum {
     PROJECT_MEMBER = 'project.member',
     PROJECT_NOTE = 'project.note',
     PROJECT_NOTE_COMMENT = 'project.note.comment',
+    PROJECT_NOTE_COMMENT_REACTION = 'project.note.comment.reaction',
     PROJECT_SCREEN = 'project.screen',
     PROJECT_SCREEN_VERSION = 'project.screen.version',
     PROJECT_SPACING_TOKEN = 'project.spacing_token',

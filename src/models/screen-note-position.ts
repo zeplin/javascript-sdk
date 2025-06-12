@@ -17,14 +17,18 @@
 export const transformScreenNotePositionToJSON = function (value: ScreenNotePosition): any {
     return {
         x: value.x,
-        y: value.y
+        y: value.y,
+        x_start: value.xStart,
+        y_start: value.yStart
     }
 }
 
 export const transformJSONToScreenNotePosition = function (value: any): ScreenNotePosition {
     return {
         x: value.x,
-        y: value.y
+        y: value.y,
+        xStart: value.x_start,
+        yStart: value.y_start
     }
 }
 
@@ -35,17 +39,29 @@ export const transformJSONToScreenNotePosition = function (value: any): ScreenNo
  */
 export interface ScreenNotePosition {
     /**
-     * 
+     * The X-coordinate of the note\'s position. For area notes, this represents the X-coordinate of the end point.
      * @type {number}
      * @memberof ScreenNotePosition
      */
     x: number;
     /**
-     * 
+     * The Y-coordinate of the note\'s position. For area notes, this represents the Y-coordinate of the end point.
      * @type {number}
      * @memberof ScreenNotePosition
      */
     y: number;
+    /**
+     * The X-coordinate of the start point for area notes. Ignored for point notes.
+     * @type {number}
+     * @memberof ScreenNotePosition
+     */
+    xStart?: number;
+    /**
+     * The Y-coordinate of the start point for area notes. Ignored for point notes.
+     * @type {number}
+     * @memberof ScreenNotePosition
+     */
+    yStart?: number;
 }
 
 

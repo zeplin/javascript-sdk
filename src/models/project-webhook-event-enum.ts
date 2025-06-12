@@ -34,6 +34,7 @@ export enum ProjectWebhookEventEnum {
     MEMBER = 'project.member',
     NOTE = 'project.note',
     NOTE_COMMENT = 'project.note.comment',
+    NOTE_COMMENT_REACTION = 'project.note.comment.reaction',
     SCREEN = 'project.screen',
     SCREEN_VERSION = 'project.screen.version',
     SPACING_TOKEN = 'project.spacing_token',

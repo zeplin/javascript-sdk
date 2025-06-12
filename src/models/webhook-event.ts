@@ -43,6 +43,11 @@ import {
     transformJSONToProjectNoteCommentEvent
 } from './project-note-comment-event';
 import {
+    ProjectNoteCommentReactionEvent,
+    transformProjectNoteCommentReactionEventToJSON,
+    transformJSONToProjectNoteCommentReactionEvent
+} from './project-note-comment-reaction-event';
+import {
     ProjectNoteEvent,
     transformProjectNoteEventToJSON,
     transformJSONToProjectNoteEvent
@@ -140,6 +145,8 @@ export const transformJSONToWebhookEvent = function (value: any): WebhookEvent {
             return transformJSONToProjectNoteEvent(value);
         case 'project.note.comment':
             return transformJSONToProjectNoteCommentEvent(value);
+        case 'project.note.comment.reaction':
+            return transformJSONToProjectNoteCommentReactionEvent(value);
         case 'project.screen':
             return transformJSONToProjectScreenEvent(value);
         case 'project.screen.version':
@@ -189,6 +196,8 @@ export const transformWebhookEventToJSON = function (value: WebhookEvent): any {
             return transformProjectNoteEventToJSON(value);
         case 'project.note.comment':
             return transformProjectNoteCommentEventToJSON(value);
+        case 'project.note.comment.reaction':
+            return transformProjectNoteCommentReactionEventToJSON(value);
         case 'project.screen':
             return transformProjectScreenEventToJSON(value);
         case 'project.screen.version':
@@ -224,6 +233,6 @@ export const transformWebhookEventToJSON = function (value: WebhookEvent): any {
  * @type WebhookEvent
  * @export
  */
-export type WebhookEvent = PingEvent | ProjectColorEvent | ProjectComponentEvent | ProjectFlowBoardEvent | ProjectMemberEvent | ProjectNoteCommentEvent | ProjectNoteEvent | ProjectScreenEvent | ProjectScreenVersionEvent | ProjectSpacingTokenEvent | ProjectTextStyleEvent | StyleguideColorEvent | StyleguideComponentEvent | StyleguideMemberEvent | StyleguideSpacingTokenEvent | StyleguideTextStyleEvent | WorkspaceNotificationEvent | WorkspaceOrganizationEvent | WorkspaceOrganizationMemberEvent | WorkspaceProjectEvent | WorkspaceStyleguideEvent;
+export type WebhookEvent = PingEvent | ProjectColorEvent | ProjectComponentEvent | ProjectFlowBoardEvent | ProjectMemberEvent | ProjectNoteCommentEvent | ProjectNoteCommentReactionEvent | ProjectNoteEvent | ProjectScreenEvent | ProjectScreenVersionEvent | ProjectSpacingTokenEvent | ProjectTextStyleEvent | StyleguideColorEvent | StyleguideComponentEvent | StyleguideMemberEvent | StyleguideSpacingTokenEvent | StyleguideTextStyleEvent | WorkspaceNotificationEvent | WorkspaceOrganizationEvent | WorkspaceOrganizationMemberEvent | WorkspaceProjectEvent | WorkspaceStyleguideEvent;
 
 

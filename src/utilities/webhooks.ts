@@ -59,6 +59,9 @@ import {
     ProjectNoteCommentCreatedEvent,
     ProjectNoteCommentDeletedEvent,
     ProjectNoteCommentUpdatedEvent,
+    ProjectNoteCommentReactionEvent,
+    ProjectNoteCommentReactionCreatedEvent,
+    ProjectNoteCommentReactionDeletedEvent,
     ProjectColorEvent,
     ProjectColorCreatedEvent,
     ProjectColorDeletedEvent,
@@ -319,6 +322,18 @@ export class Webhooks {
 
     static isProjectNoteCommentUpdatedEvent(data: WebhookEvent): data is ProjectNoteCommentUpdatedEvent {
         return Webhooks.isProjectNoteCommentEvent(data) && data.action === "updated";
+    }
+
+    static isProjectNoteCommentReactionEvent(data: WebhookEvent): data is ProjectNoteCommentReactionEvent {
+        return data.event === "project.note.comment.reaction";
+    }
+
+    static isProjectNoteCommentReactionCreatedEvent(data: WebhookEvent): data is ProjectNoteCommentReactionCreatedEvent {
+        return Webhooks.isProjectNoteCommentReactionEvent(data) && data.action === "created";
+    }
+
+    static isProjectNoteCommentReactionDeletedEvent(data: WebhookEvent): data is ProjectNoteCommentReactionDeletedEvent {
+        return Webhooks.isProjectNoteCommentReactionEvent(data) && data.action === "deleted";
     }
 
     static isProjectColorEvent(data: WebhookEvent): data is ProjectColorEvent {

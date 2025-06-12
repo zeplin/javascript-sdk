@@ -66,7 +66,7 @@ export const transformJSONToScreenNote = function (value: any): ScreenNote {
 }
 
 /**
- * 
+ * Screen notes are comments added to a screen and can be either point notes, which have a single point in the position field, or area notes, which have a position field containing both a start and end point to define a rectangular region. 
  * @export
  * @interface ScreenNote
  */
