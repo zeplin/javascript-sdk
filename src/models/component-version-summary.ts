@@ -52,6 +52,7 @@ export const transformComponentVersionSummaryToJSON = function (value: Component
         image_url: value.imageUrl,
         thumbnails: value.thumbnails && transformThumbnailsToJSON(value.thumbnails),
         source: transformSourceEnumToJSON(value.source),
+        source_file_url: value.sourceFileUrl,
         width: value.width,
         height: value.height,
         background_color: value.backgroundColor && transformColorDataToJSON(value.backgroundColor),
@@ -69,6 +70,7 @@ export const transformJSONToComponentVersionSummary = function (value: any): Com
         imageUrl: value.image_url,
         thumbnails: value.thumbnails && transformJSONToThumbnails(value.thumbnails),
         source: transformJSONToSourceEnum(value.source),
+        sourceFileUrl: value.source_file_url,
         width: value.width,
         height: value.height,
         backgroundColor: value.background_color && transformJSONToColorData(value.background_color),
@@ -120,6 +122,12 @@ export interface ComponentVersionSummary {
      * @memberof ComponentVersionSummary
      */
     source: SourceEnum;
+    /**
+     * Source file url of the version
+     * @type {string}
+     * @memberof ComponentVersionSummary
+     */
+    sourceFileUrl?: string;
     /**
      * Width of the version
      * @type {number}
