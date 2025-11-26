@@ -18,6 +18,11 @@ import {
     transformJSONToEntityReference
 } from './entity-reference';
 import {
+    FlowBoardAnnotationNode,
+    transformFlowBoardAnnotationNodeToJSON,
+    transformJSONToFlowBoardAnnotationNode
+} from './flow-board-annotation-node';
+import {
     FlowBoardNodeColor,
     transformFlowBoardNodeColorToJSON,
     transformJSONToFlowBoardNodeColor
@@ -47,10 +52,17 @@ import {
     transformFlowBoardVariantGroupNodeToJSON,
     transformJSONToFlowBoardVariantGroupNode
 } from './flow-board-variant-group-node';
+import {
+    ScreenAnnotationNoteType,
+    transformScreenAnnotationNoteTypeToJSON,
+    transformJSONToScreenAnnotationNoteType
+} from './screen-annotation-note-type';
 
 
 export const transformJSONToFlowBoardNode = function (value: any): FlowBoardNode {
     switch (value.type) {
+        case 'AnnotationNode':
+            return transformJSONToFlowBoardAnnotationNode(value);
         case 'ScreenNode':
             return transformJSONToFlowBoardScreenNode(value);
         case 'ShapeNode':
@@ -66,6 +78,8 @@ export const transformJSONToFlowBoardNode = function (value: any): FlowBoardNode
 
 export const transformFlowBoardNodeToJSON = function (value: FlowBoardNode): any {
     switch (value.type) {
+        case 'AnnotationNode':
+            return transformFlowBoardAnnotationNodeToJSON(value);
         case 'ScreenNode':
             return transformFlowBoardScreenNodeToJSON(value);
         case 'ShapeNode':
@@ -81,6 +95,6 @@ export const transformFlowBoardNodeToJSON = function (value: FlowBoardNode): any
  * @type FlowBoardNode
  * @export
  */
-export type FlowBoardNode = FlowBoardScreenNode | FlowBoardShapeNode | FlowBoardTextNode | FlowBoardVariantGroupNode;
+export type FlowBoardNode = FlowBoardAnnotationNode | FlowBoardScreenNode | FlowBoardShapeNode | FlowBoardTextNode | FlowBoardVariantGroupNode;
 
 

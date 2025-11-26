@@ -49,6 +49,7 @@ export {
     EntityReference,
     ErrorResponse,
     FlowBoard,
+    FlowBoardAnnotationNode,
     FlowBoardConnection,
     FlowBoardConnectionPosition,
     FlowBoardConnector,

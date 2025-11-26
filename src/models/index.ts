@@ -35,6 +35,7 @@ export * from './enabled-rem-preferences';
 export * from './entity-reference';
 export * from './error-response';
 export * from './flow-board';
+export * from './flow-board-annotation-node';
 export * from './flow-board-connection';
 export * from './flow-board-connection-position';
 export * from './flow-board-connector';
