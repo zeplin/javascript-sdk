@@ -36,6 +36,7 @@ export const transformScreenAnnotationToJSON = function (value: ScreenAnnotation
         type: transformScreenAnnotationNoteTypeToJSON(value.type),
         position: transformScreenAnnotationPositionToJSON(value.position),
         creator: transformUserToJSON(value.creator),
+        updated_by: value.updatedBy && transformUserToJSON(value.updatedBy),
         updated: value.updated,
         created: value.created
     }
@@ -48,6 +49,7 @@ export const transformJSONToScreenAnnotation = function (value: any): ScreenAnno
         type: transformJSONToScreenAnnotationNoteType(value.type),
         position: transformJSONToScreenAnnotationPosition(value.position),
         creator: transformJSONToUser(value.creator),
+        updatedBy: value.updated_by && transformJSONToUser(value.updated_by),
         updated: value.updated,
         created: value.created
     }
@@ -89,6 +91,12 @@ export interface ScreenAnnotation {
      * @memberof ScreenAnnotation
      */
     creator: User;
+    /**
+     * 
+     * @type {User}
+     * @memberof ScreenAnnotation
+     */
+    updatedBy?: User;
     /**
      * The unix timestamp when the annotation was last updated
      * @type {number}
