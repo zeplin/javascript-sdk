@@ -33,10 +33,25 @@ import {
     transformJSONToLayerBorder
 } from './layer-border';
 import {
+    LayerConstraints,
+    transformLayerConstraintsToJSON,
+    transformJSONToLayerConstraints
+} from './layer-constraints';
+import {
+    LayerCornerRadius,
+    transformLayerCornerRadiusToJSON,
+    transformJSONToLayerCornerRadius
+} from './layer-corner-radius';
+import {
     LayerFill,
     transformLayerFillToJSON,
     transformJSONToLayerFill
 } from './layer-fill';
+import {
+    LayerLayout,
+    transformLayerLayoutToJSON,
+    transformJSONToLayerLayout
+} from './layer-layout';
 import {
     LayerShadow,
     transformLayerShadowToJSON,
@@ -68,7 +83,22 @@ export const transformLayerToJSON = function (value: Layer): any {
         content: value.content,
         text_styles: value.textStyles && value.textStyles.map(transformLayerTextStyleToJSON),
         layers: value.layers && value.layers.map(transformLayerToJSON),
-        component_name: value.componentName
+        component_name: value.componentName,
+        layout: value.layout && transformLayerLayoutToJSON(value.layout),
+        constraints: value.constraints && transformLayerConstraintsToJSON(value.constraints),
+        corner_radius: value.cornerRadius && transformLayerCornerRadiusToJSON(value.cornerRadius),
+        layout_alignment: value.layoutAlignment,
+        layout_grow: value.layoutGrow,
+        grid_child_horizontal_alignment: value.gridChildHorizontalAlignment,
+        grid_child_vertical_alignment: value.gridChildVerticalAlignment,
+        grid_column_index: value.gridColumnIndex,
+        grid_column_span: value.gridColumnSpan,
+        grid_row_index: value.gridRowIndex,
+        grid_row_span: value.gridRowSpan,
+        min_width: value.minWidth,
+        max_width: value.maxWidth,
+        min_height: value.minHeight,
+        max_height: value.maxHeight
     }
 }
 
@@ -91,7 +121,22 @@ export const transformJSONToLayer = function (value: any): Layer {
         content: value.content,
         textStyles: value.text_styles && value.text_styles.map(transformJSONToLayerTextStyle),
         layers: value.layers && value.layers.map(transformJSONToLayer),
-        componentName: value.component_name
+        componentName: value.component_name,
+        layout: value.layout && transformJSONToLayerLayout(value.layout),
+        constraints: value.constraints && transformJSONToLayerConstraints(value.constraints),
+        cornerRadius: value.corner_radius && transformJSONToLayerCornerRadius(value.corner_radius),
+        layoutAlignment: value.layout_alignment,
+        layoutGrow: value.layout_grow,
+        gridChildHorizontalAlignment: value.grid_child_horizontal_alignment,
+        gridChildVerticalAlignment: value.grid_child_vertical_alignment,
+        gridColumnIndex: value.grid_column_index,
+        gridColumnSpan: value.grid_column_span,
+        gridRowIndex: value.grid_row_index,
+        gridRowSpan: value.grid_row_span,
+        minWidth: value.min_width,
+        maxWidth: value.max_width,
+        minHeight: value.min_height,
+        maxHeight: value.max_height
     }
 }
 
@@ -209,6 +254,96 @@ export interface Layer {
      * @memberof Layer
      */
     componentName?: string;
+    /**
+     * 
+     * @type {LayerLayout}
+     * @memberof Layer
+     */
+    layout?: LayerLayout;
+    /**
+     * 
+     * @type {LayerConstraints}
+     * @memberof Layer
+     */
+    constraints?: LayerConstraints;
+    /**
+     * 
+     * @type {LayerCornerRadius}
+     * @memberof Layer
+     */
+    cornerRadius?: LayerCornerRadius;
+    /**
+     * Alignment of the layer within its parent\'s auto layout
+     * @type {string}
+     * @memberof Layer
+     */
+    layoutAlignment?: 'min' | 'center' | 'max' | 'stretch' | 'inherit' | 'baseline';
+    /**
+     * Factor by which the layer grows to fill its parent\'s auto layout
+     * @type {number}
+     * @memberof Layer
+     */
+    layoutGrow?: number;
+    /**
+     * Horizontal alignment of the layer within its parent\'s grid cell
+     * @type {string}
+     * @memberof Layer
+     */
+    gridChildHorizontalAlignment?: 'center' | 'max' | 'min' | 'auto';
+    /**
+     * Vertical alignment of the layer within its parent\'s grid cell
+     * @type {string}
+     * @memberof Layer
+     */
+    gridChildVerticalAlignment?: 'center' | 'max' | 'min' | 'auto';
+    /**
+     * Column index of the layer within its parent\'s grid
+     * @type {number}
+     * @memberof Layer
+     */
+    gridColumnIndex?: number;
+    /**
+     * Number of columns the layer spans within its parent\'s grid
+     * @type {number}
+     * @memberof Layer
+     */
+    gridColumnSpan?: number;
+    /**
+     * Row index of the layer within its parent\'s grid
+     * @type {number}
+     * @memberof Layer
+     */
+    gridRowIndex?: number;
+    /**
+     * Number of rows the layer spans within its parent\'s grid
+     * @type {number}
+     * @memberof Layer
+     */
+    gridRowSpan?: number;
+    /**
+     * Minimum width of the layer
+     * @type {number}
+     * @memberof Layer
+     */
+    minWidth?: number;
+    /**
+     * Maximum width of the layer
+     * @type {number}
+     * @memberof Layer
+     */
+    maxWidth?: number;
+    /**
+     * Minimum height of the layer
+     * @type {number}
+     * @memberof Layer
+     */
+    minHeight?: number;
+    /**
+     * Maximum height of the layer
+     * @type {number}
+     * @memberof Layer
+     */
+    maxHeight?: number;
 }
 
 
