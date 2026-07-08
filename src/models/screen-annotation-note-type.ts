@@ -27,16 +27,16 @@ import {
 export const transformScreenAnnotationNoteTypeToJSON = function (value: ScreenAnnotationNoteType): any {
     return {
         id: value.id,
-        name: transformScreenAnnotationNoteTypeEnumToJSON(value.name),
-        color: transformScreenAnnotationColorToJSON(value.color)
+        name: value.name && transformScreenAnnotationNoteTypeEnumToJSON(value.name),
+        color: value.color && transformScreenAnnotationColorToJSON(value.color)
     }
 }
 
 export const transformJSONToScreenAnnotationNoteType = function (value: any): ScreenAnnotationNoteType {
     return {
         id: value.id,
-        name: transformJSONToScreenAnnotationNoteTypeEnum(value.name),
-        color: transformJSONToScreenAnnotationColor(value.color)
+        name: value.name && transformJSONToScreenAnnotationNoteTypeEnum(value.name),
+        color: value.color && transformJSONToScreenAnnotationColor(value.color)
     }
 }
 
@@ -51,19 +51,19 @@ export interface ScreenAnnotationNoteType {
      * @type {string}
      * @memberof ScreenAnnotationNoteType
      */
-    id: string;
+    id?: string;
     /**
      * 
      * @type {ScreenAnnotationNoteTypeEnum}
      * @memberof ScreenAnnotationNoteType
      */
-    name: ScreenAnnotationNoteTypeEnum;
+    name?: ScreenAnnotationNoteTypeEnum;
     /**
      * 
      * @type {ScreenAnnotationColor}
      * @memberof ScreenAnnotationNoteType
      */
-    color: ScreenAnnotationColor;
+    color?: ScreenAnnotationColor;
 }
 
 
