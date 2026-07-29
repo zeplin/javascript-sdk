@@ -1,6 +1,6 @@
 {
   "name": "@zeplin/sdk",
-  "version": "0.0.0",
+  "version": "1.29.0",
   "description": "Zeplin API client for JavaScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,13 +24,14 @@
   },
   "homepage": "https://github.com/zeplin/javascript-sdk#readme",
   "dependencies": {
-    "axios": "^1.6.8",
+    "axios": "^1.9.0",
     "core-js": "^3.10.2",
     "form-data": "^4.0.0",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
+    "@babel/core": "^7.27.3",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-typescript": "^7.13.0",
